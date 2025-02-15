@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-        <Header></Header>
+        <SideBarChats></SideBarChats>
+        <SideBarMenu></SideBarMenu>
         <main>
             <ChatBot />
         </main>
@@ -8,7 +9,8 @@
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue';
+import SideBarChats from '@/components/SideBarChats.vue';
+import SideBarMenu from '@/components/SideBarMenu.vue';
 import ChatBot from '@/components/ChatBot.vue';
 
 

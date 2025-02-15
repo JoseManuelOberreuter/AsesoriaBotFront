@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
-import ChatView from '../views/ChatView.vue';
+import ContactForm from '../views/ContactForm.vue';
 
 const routes = [
   {
@@ -15,9 +15,9 @@ const routes = [
     component: AboutView
   },
   {
-    path: '/chat',
-    name: 'chat',
-    component: ChatView
+    path: '/contact',
+    name: 'ContactForm',
+    component: ContactForm
   }
 ];
 

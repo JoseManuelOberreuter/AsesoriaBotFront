@@ -7,25 +7,16 @@
       </button>
 
       <!-- Sección del perfil -->
-      <div class="profile">
+      <router-link class="profile">
         <img :src="profileImage" alt="Usuario" class="profile-avatar" />
         <span class="profile-name">AsesoriaBot</span>
-      </div>
+      </router-link>
 
-      <!-- Sección de notificaciones -->
-      <div class="notifications">
-        <h3>Notificaciones</h3>
-        <ul>
-          <li v-for="(notification, index) in notifications" :key="index">
-            {{ notification }}
-          </li>
-        </ul>
-      </div>
-
-      <!-- Botones inferiores -->
-      <div class="bottom-buttons">
-        <button class="settings-btn">⚙ Configuración</button>
-        <button class="docs-btn">📄 Documentación</button>
+      <!-- Botones superiores -->
+      <div class="top-buttons">
+        <router-link to="/contact" class="contact-btn">🔥 Cotiza Ahora!</router-link>
+        <router-link to="/about" class="about-btn">📘 Sobre Nosotros</router-link>
+        <a href="https://github.com/JoseManuelOberreuter/AsesoriaBot" target="_blank" rel="noopener noreferrer" class="docs-btn">📄 Documentación</a>
       </div>
     </aside>
   </div>
@@ -40,12 +31,7 @@ export default {
   data() {
     return {
       isOpen: false, // Inicia oculto por defecto
-      profileImage: ProfileImage,
-      notifications: [
-        "Nuevo mensaje recibido",
-        "Actualización disponible",
-        "Revisión de documento completada"
-      ]
+      profileImage: ProfileImage
     };
   },
   methods: {
@@ -71,7 +57,7 @@ export default {
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -83,7 +69,7 @@ export default {
 .toggle-btn {
   position: absolute;
   top: 45%;
-  left: -40px; /* Se pega al sidebar */
+  left: -40px;
   width: 40px;
   height: 40px;
   background-color: var(--color-dark-secondary);
@@ -91,7 +77,7 @@ export default {
   border: none;
   cursor: pointer;
   z-index: 1100;
-  border-radius: 10px 0 0 10px; /* Forma redonda pegada */
+  border-radius: 10px 0 0 10px;
   transition: background-color 0.3s ease, transform 0.3s ease;
   display: flex;
   align-items: center;
@@ -110,6 +96,7 @@ export default {
   align-items: center;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--color-dark-secondary);
+  text-decoration: none;
 }
 
 .profile-avatar {
@@ -125,42 +112,15 @@ export default {
   color: var(--color-light-secondary);
 }
 
-/* Notificaciones */
-.notifications {
-  flex-grow: 1;
-  padding: 1rem 0;
-  overflow-y: auto;
-}
-
-.notifications h3 {
-  color: var(--color-light-secondary);
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.notifications ul {
-  list-style: none;
-  padding: 0;
-}
-
-.notifications li {
-  background-color: var(--color-light-secondary);
-  color: var(--color-primary);
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 5px;
-  font-size: 0.9rem;
-}
-
-/* Botones inferiores */
-.bottom-buttons {
+/* Botones superiores */
+.top-buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 1rem;
 }
 
-.settings-btn,
-.docs-btn {
+.contact-btn{
   background-color: var(--color-dark-secondary);
   color: var(--color-light-secondary);
   border: none;
@@ -170,11 +130,28 @@ export default {
   font-size: 1rem;
   transition: background-color 0.3s ease;
   text-align: center;
+  text-decoration: none;
 }
 
-.settings-btn:hover,
-.docs-btn:hover {
+.about-btn,
+.docs-btn {
   background-color: var(--color-primary);
+  color: var(--color-light-secondary);
+  border: none;
+  padding: 0.6rem;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+}
+
+.contact-btn:hover,
+.about-btn:hover,
+.docs-btn:hover {
+  background-color: var(--color-background);
+  color: var(--color-primary);
 }
 
 /* Ajuste de ancho en pantallas más grandes */
