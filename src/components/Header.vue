@@ -1,10 +1,11 @@
 <template>
   <header>
-    <h1>ChatBot</h1>
   </header>
 </template>
 
 <script>
+import '@/styles/index.css';
+
 export default {
   name: 'Header'
 }
@@ -20,7 +21,6 @@ header {
   top: 0; 
   width: 100%; 
   height: 40px; 
-  background-color: #333;
   color: white;
   padding: 1rem;
   text-align: center;

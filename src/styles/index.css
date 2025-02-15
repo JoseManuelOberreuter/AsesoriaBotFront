@@ -1,0 +1,17 @@
+:root {
+    --color-primary: #AD8B73;
+    --color-secondary: #CEAB93;
+    --color-background: #E3CAA5;
+    --color-light-secondary: #FFFBE9;
+    --color-dark-secondary: #889E73;
+  }
+  
+  /* Aplicar colores al body */
+  body {
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
