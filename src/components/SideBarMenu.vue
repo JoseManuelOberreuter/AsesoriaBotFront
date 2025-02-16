@@ -30,7 +30,7 @@ export default {
   name: 'RightSidebar',
   data() {
     return {
-      isOpen: false, // Inicia oculto por defecto
+      isOpen: true, // Inicia oculto por defecto
       profileImage: ProfileImage
     };
   },
@@ -72,7 +72,7 @@ export default {
   left: -40px;
   width: 40px;
   height: 40px;
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-primary);
   color: var(--color-light-secondary);
   border: none;
   cursor: pointer;
@@ -86,7 +86,7 @@ export default {
 }
 
 .toggle-btn:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-dark-secondary);
   transform: scale(1.1);
 }
 
@@ -104,6 +104,11 @@ export default {
   height: 45px;
   border-radius: 50%;
   margin-right: 10px;
+  transition: 0.5s;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.3);
 }
 
 .profile-name {

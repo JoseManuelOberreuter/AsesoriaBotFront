@@ -12,8 +12,20 @@
           </li>
 
           <div class="chat-container">
-            <li v-for="(chat, index) in chats" :key="index">
-              <a href="#">{{ chat }}</a>
+            <li v-for="(chat, index) in chats" :key="index" class="chat-item">
+              <span v-if="!chat.isEditing" @click="editChat(index)">{{ chat.name }}</span>
+              <input 
+                v-else 
+                v-model="chat.name" 
+                @blur="saveChat(index)" 
+                @keyup.enter="saveChat(index)" 
+                class="chat-input"
+                autofocus
+              />
+              <div class="chat-actions">
+                <button class="edit-btn" @click="editChat(index)">✏️</button>
+                <button class="delete-btn" @click="deleteChat(index)">🗑️</button>
+              </div>
             </li>
           </div>
         </ul>
@@ -29,8 +41,12 @@ export default {
   name: 'SideBar',
   data() {
     return {
-      isOpen: false,
-      chats: ["Chat antiguo", "Chat antiguo", "Chat antiguo"]
+      isOpen: true,
+      chats: [
+        { name: "Chat antiguo", isEditing: false },
+        { name: "Chat antiguo", isEditing: false },
+        { name: "Chat antiguo", isEditing: false }
+      ]
     };
   },
   methods: {
@@ -38,13 +54,19 @@ export default {
       this.isOpen = !this.isOpen;
     },
     addChat() {
-      this.chats.unshift(`Chat ${this.chats.length + 1}`);
-      this.$nextTick(() => {
-        const chatContainer = this.$el.querySelector(".chat-container");
-        if (chatContainer) {
-          chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
+      this.chats.unshift({ name: `Chat ${this.chats.length + 1}`, isEditing: false });
+    },
+    editChat(index) {
+      this.chats.forEach((chat, i) => {
+        if (i === index) chat.isEditing = true;
+        else chat.isEditing = false;
       });
+    },
+    saveChat(index) {
+      this.chats[index].isEditing = false;
+    },
+    deleteChat(index) {
+      this.chats.splice(index, 1);
     }
   }
 };
@@ -55,7 +77,7 @@ export default {
 .sidebar {
   width: 250px;
   background-color: var(--color-secondary);
-  padding: 1rem;
+  padding: 2rem 1rem;
   position: fixed;
   left: 0;
   top: 0;
@@ -76,15 +98,14 @@ export default {
 .toggle-btn {
   position: absolute;
   top: 45%;
-  right: -40px; /* Se pega al sidebar */
+  right: -40px;
   width: 40px;
   height: 40px;
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-primary);
   color: var(--color-light-secondary);
   border: none;
   cursor: pointer;
-  z-index: 1100;
-  border-radius: 0 10px 10px 0; /* Forma redonda pegada */
+  border-radius: 0 10px 10px 0;
   transition: background-color 0.3s ease, transform 0.3s ease;
   display: flex;
   align-items: center;
@@ -93,7 +114,7 @@ export default {
 }
 
 .toggle-btn:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-dark-secondary);
   transform: scale(1.1);
 }
 
@@ -135,23 +156,55 @@ export default {
   background: transparent;
 }
 
-/* Enlaces de los chats */
-.sidebar a {
+/* Items de chat */
+.chat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-background);
   color: var(--color-light-secondary);
-  text-decoration: none;
-  display: block;
   padding: 0.5rem 1rem;
-  transition: background-color 0.3s ease;
   border-radius: 8px;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
 }
 
-.sidebar a:hover {
+.chat-item:hover {
   background-color: var(--color-primary);
 }
 
+/* Input para editar el nombre del chat */
+.chat-input {
+  width: 70%;
+  padding: 4px;
+  font-size: 1rem;
+  border: 1px solid var(--color-dark-secondary);
+  border-radius: 4px;
+  outline: none;
+}
+
+/* Botones de acción */
+.chat-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.edit-btn,
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.edit-btn:hover,
+.delete-btn:hover  {
+  transform: scale(1.3);
+}
 /* Botón "Nuevo Chat" */
 .sidebar .first-item button {
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-primary);
   color: var(--color-light-secondary);
   border: none;
   padding: 0.5rem 1rem;
@@ -163,10 +216,10 @@ export default {
 }
 
 .sidebar .first-item button:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-dark-secondary);
 }
 
-/* Se elimina transform: translateX(0) */
+/* Responsive */
 @media (min-width: 768px) {
   .sidebar {
     width: 20vw;
