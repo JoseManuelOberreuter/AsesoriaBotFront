@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <SideBarChats></SideBarChats>
+        <!-- <SideBarChats></SideBarChats> -->
         <SideBarMenu></SideBarMenu>
         <main>
             <ChatBot />

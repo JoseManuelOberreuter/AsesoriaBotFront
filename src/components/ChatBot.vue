@@ -5,7 +5,7 @@
         <!-- Mensajes del bot con imagen de avatar -->
         <div v-if="message.sender === 'bot'" class="bot-message">
           <img :src="LogoAsesoriaBot" alt="Imagen de perfil de AsesoriaBot" class="bot-avatar" />
-          <span class="bot-text">{{ message.text }}</span>
+          <TypeWriter :text="message.text" :speed="15" class="bot-text" />
         </div>
 
         <!-- Mensajes del usuario con imagen de avatar -->
@@ -30,21 +30,39 @@
 import '@/styles/index.css';
 import LogoAsesoriaBot from '@/assets/LogoAsesoriaBot.png';
 import UserLogo from '@/assets/UserLogo.png';
+import TypeWriter from './TypeWriter.vue';
 import axios from 'axios';
 
 export default {
   name: 'ChatBot',
+  components: {
+    TypeWriter
+  },
   data() {
     return {
       messages: [], // Almacena los mensajes enviados y recibidos
       newMessage: '', // Texto del mensaje en el input
       LogoAsesoriaBot,
-      UserLogo
+      UserLogo,
     };
   },
 
+  mounted() {
+    this.showIntroMessages();
+  },
+
   methods: {
-    // Envía un mensaje del usuario y obtiene la respuesta del bot
+    // 📌 Mensajes iniciales cuando se abre el chatbot
+    showIntroMessages() {
+      const introMessages = [
+        { text: "¡Hola! Soy AsesoriaBot, tu asistente virtual inteligente. Estoy aquí para brindarte asesoría automatizada y ayudarte a resolver dudas de manera rápida y eficiente. Puedes preguntarme sobre nuestros servicios, soporte técnico o cualquier otra información que necesites. ¡Estoy listo para ayudarte! 😊", sender: "bot" },
+      ];
+
+      this.messages.push(...introMessages);
+      this.scrollToBottom();
+    },
+
+    // 📌 Enviar mensaje del usuario y obtener respuesta del bot
     async sendMessage() {
       const trimmedMessage = this.newMessage.trim();
       if (!trimmedMessage) return;
@@ -58,20 +76,20 @@ export default {
       await this.getBotReply(trimmedMessage);
     },
 
-    // Llama a la API del bot y agrega la respuesta a la conversación
+    // 📌 Llama a la API del bot y agrega la respuesta a la conversación
     async getBotReply(userMessage) {
       try {
         const response = await axios.post('http://localhost:4005/chat', { prompt: userMessage });
         this.messages.push({ text: response.data.respuesta, sender: 'bot' });
       } catch (error) {
         console.error('Error al obtener la respuesta del bot:', error);
-        this.messages.push({ text: 'Error al conectar con el servidor', sender: 'bot' });
+        this.messages.push({ text: '❌ Error al conectar con el servidor.', sender: 'bot' });
       } finally {
         this.scrollToBottom();
       }
     },
 
-    // Hace scroll automático al último mensaje
+    // 📌 Hace scroll automático al último mensaje
     scrollToBottom() {
       this.$nextTick(() => {
         const container = this.$refs.messagesContainer;
@@ -85,7 +103,7 @@ export default {
 </script>
 
 <style>
-/* Estilos generales del chatbot */
+/* 📌 Estilos generales del chatbot */
 .chatbot {
   position: fixed;
   bottom: 0;
@@ -103,7 +121,7 @@ export default {
   flex-direction: column;
 }
 
-/* Contenedor de mensajes con scroll */
+/* 📌 Contenedor de mensajes con scroll */
 .messages {
   flex: 1;
   overflow-y: auto;
@@ -113,7 +131,7 @@ export default {
   scrollbar-color: var(--color-secondary) transparent;
 }
 
-/* Contenedor de cada mensaje */
+/* 📌 Contenedor de cada mensaje */
 .message-container {
   display: flex;
   flex-direction: column;
@@ -121,10 +139,10 @@ export default {
   margin-bottom: 1rem;
 }
 
-/* Mensajes del bot */
+/* 📌 Mensajes del bot */
 .bot-message {
   display: flex;
-  align-items: center;
+  align-items: top;
   color: var(--color-light-secondary);
   padding: 0.5rem;
   border-radius: 8px;
@@ -140,9 +158,13 @@ export default {
 
 .bot-text {
   font-size: 1rem;
+  text-align: justify;
+  padding: 10px;
+  border-radius: 8px;
+  line-height: 1.5; 
 }
 
-/* Mensajes del usuario */
+/* 📌 Mensajes del usuario */
 .user-message {
   align-self: flex-end;
   display: flex;
@@ -164,23 +186,23 @@ export default {
   font-size: 1rem;
 }
 
-/* Estilos del campo de entrada de texto */
+/* 📌 Estilos del campo de entrada de texto */
 input {
   border: none;
   border-radius: 20px;
   padding: 0.8rem 1rem;
   width: 80%;
   max-width: 500px;
-  background-color: var(--color-light-secondary);
-  color: black;
+  background-color: var(--color-background);
+  color: var(--color-light-secondary);
   margin: auto;
   display: block;
   outline: none;
   transition: background-color 0.2s ease;
 }
 
-/* Estilo cuando el input está enfocado */
+/* 📌 Estilo cuando el input está enfocado */
 input:focus {
-  background-color: var(--color-background);
+  background-color: var(--color-secondary);
 }
-</style>
+</style> 

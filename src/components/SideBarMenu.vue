@@ -16,6 +16,7 @@
       <div class="top-buttons">
         <router-link to="/contact" class="contact-btn">🔥 Cotiza Ahora!</router-link>
         <router-link to="/register" class="contact-btn">Registrate</router-link>
+        <router-link to="/login" class="contact-btn">Inicia Sesión</router-link>
         <router-link to="/about" class="about-btn">📘 Sobre Nosotros</router-link>
         <a href="https://github.com/JoseManuelOberreuter/AsesoriaBot" target="_blank" rel="noopener noreferrer" class="docs-btn">📄 Documentación</a>
       </div>
@@ -31,20 +32,39 @@ export default {
   name: 'RightSidebar',
   data() {
     return {
-      isOpen: true, // Inicia oculto por defecto
+      isOpen: false, // 📌 Siempre inicia cerrado
       profileImage: ProfileImage
     };
+  },
+  mounted() {
+    this.checkScreenSize();
+    window.addEventListener('resize', this.checkScreenSize);
+
+    // 📌 Abrir automáticamente después de 10 segundos si la pantalla es ≥ 768px
+    setTimeout(() => {
+      if (window.innerWidth >= 768) {
+        this.isOpen = true;
+      }
+    }, 5000);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.checkScreenSize);
   },
   methods: {
     toggleSidebar() {
       this.isOpen = !this.isOpen;
+    },
+    checkScreenSize() {
+      if (window.innerWidth < 768) {
+        this.isOpen = false; // 📌 Si la pantalla es < 768px, mantener cerrado
+      }
     }
   }
 };
 </script>
 
 <style scoped>
-/* Sidebar derecho */
+/* 📌 Sidebar derecho */
 .right-sidebar {
   width: 260px;
   background-color: var(--color-secondary);
@@ -66,7 +86,7 @@ export default {
   transform: translateX(0);
 }
 
-/* Botón dentro del sidebar */
+/* 📌 Botón dentro del sidebar */
 .toggle-btn {
   position: absolute;
   top: 45%;
@@ -91,7 +111,7 @@ export default {
   transform: scale(1.1);
 }
 
-/* Perfil */
+/* 📌 Perfil */
 .profile {
   display: flex;
   align-items: center;
@@ -118,7 +138,7 @@ export default {
   color: var(--color-light-secondary);
 }
 
-/* Botones superiores */
+/* 📌 Botones superiores */
 .top-buttons {
   display: flex;
   flex-direction: column;
@@ -126,7 +146,7 @@ export default {
   margin-top: 1rem;
 }
 
-.contact-btn{
+.contact-btn {
   background-color: var(--color-dark-secondary);
   color: var(--color-light-secondary);
   border: none;
@@ -160,7 +180,7 @@ export default {
   color: var(--color-primary);
 }
 
-/* Ajuste de ancho en pantallas más grandes */
+/* 📌 Ajuste de ancho en pantallas más grandes */
 @media (min-width: 768px) {
   .right-sidebar {
     width: 20vw;
