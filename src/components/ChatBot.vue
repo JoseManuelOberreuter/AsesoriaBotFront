@@ -91,13 +91,13 @@ export default {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  height: 87vh;
+  height: 90vh;
   width: 80vw;
   max-width: 700px;
-  max-height: 700px;
+  max-height: 90vh;
   border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 2rem;
+  padding: 2vh;
+  margin-bottom: 3vh;
   background-color: var(--color-primary);
   display: flex;
   flex-direction: column;
