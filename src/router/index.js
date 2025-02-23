@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
-import ContactForm from '../views/ContactForm.vue';
+import ContactForm from '../views/ContactView.vue';
+import RegisterForm from '../views/RegisterView.vue';
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/contact',
     name: 'ContactForm',
     component: ContactForm
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: RegisterForm
   }
 ];
 

@@ -15,6 +15,7 @@
       <!-- Botones superiores -->
       <div class="top-buttons">
         <router-link to="/contact" class="contact-btn">🔥 Cotiza Ahora!</router-link>
+        <router-link to="/register" class="contact-btn">Registrate</router-link>
         <router-link to="/about" class="about-btn">📘 Sobre Nosotros</router-link>
         <a href="https://github.com/JoseManuelOberreuter/AsesoriaBot" target="_blank" rel="noopener noreferrer" class="docs-btn">📄 Documentación</a>
       </div>
