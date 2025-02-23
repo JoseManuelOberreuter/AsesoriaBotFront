@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import ContactForm from '../views/ContactView.vue';
 import RegisterForm from '../views/RegisterView.vue';
+import LoginView from '../views/LoginView.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: RegisterForm
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView
   }
 ];
 
