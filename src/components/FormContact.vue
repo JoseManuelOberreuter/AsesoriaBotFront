@@ -1,6 +1,6 @@
 <template>
   <div class="container-form">
-    <form @submit.prevent="submitForm" class="glassmorphism p-8 rounded-2xl shadow-lg w-full max-w-sm text-center">
+    <form @submit.prevent="submitForm" id="quote-form" class="glassmorphism p-8 rounded-2xl shadow-lg w-full max-w-sm text-center">
       <h2 class="text-2xl font-bold text-light-secondary mb-5">Cotiza tu Plan</h2>
 
       <!-- Nombre -->
@@ -44,7 +44,7 @@
         <label class="block text-light-secondary font-semibold">Selecciona un Plan</label>
         <select v-model="formData.plan" required class="input-field-select">
           <option disabled value="">Elige un plan</option>
-          <option v-for="plan in plans" :key="plan" :value="plan">{{ plan }}</option>
+          <option v-for="plan in plans" :key="plan.name" :value="plan.name">{{ plan.name }}</option>
         </select>
       </div>
 
@@ -66,31 +66,54 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      formData: {
-        name: "",
-        email: "",
-        phone: "",
-        plan: "",
-        message: "Estoy interesado en recibir una cotización para este plan.",
-      },
-      plans: ["Básico", "Estándar", "Premium", "Personalizado"],
-    };
+<script setup>
+import { ref, watch, defineProps } from 'vue';
+
+const props = defineProps({
+  selectedPlan: {
+    type: String,
+    default: ''
   },
-  methods: {
-    submitForm() {
-      console.log("Formulario enviado:", this.formData);
-      alert("Cotización enviada correctamente.");
-    },
-  },
-};
+  plans: {
+    type: Array,
+    required: true
+  }
+});
+
+const formData = ref({
+  name: "",
+  email: "",
+  phone: "",
+  plan: "",
+  message: "Estoy interesado en recibir una cotización para este plan.",
+});
+
+// Actualiza el plan seleccionado en el formulario cuando cambie la prop
+watch(() => props.selectedPlan, (newVal) => {
+  if (newVal) {
+    formData.value.plan = newVal;
+    formData.value.message = `Estoy interesado en el ${newVal}. ¿Podrían enviarme más información?`;
+  }
+});
+
+function submitForm() {
+  console.log("Formulario enviado:", formData.value);
+  alert("Cotización enviada correctamente.");
+  resetForm();
+}
+
+function resetForm() {
+  formData.value = {
+    name: "",
+    email: "",
+    phone: "",
+    plan: "",
+    message: "Estoy interesado en recibir una cotización para este plan.",
+  }
+}
 </script>
 
 <style scoped>
-
 .container-form {
   display: flex;
   justify-content: center;
@@ -98,7 +121,6 @@ export default {
   height: 100vh;
 }
 
-/* Estilo Glassmorphism */
 .glassmorphism {
   background: var(--color-primary);
   backdrop-filter: blur(10px);
@@ -108,10 +130,8 @@ export default {
   width: 90%;
   max-width: 350px;
   justify-content: center;
-
 }
 
-/* Inputs y Select */
 .input-field {
   width: 95%;
   padding: 12px;
@@ -140,7 +160,6 @@ export default {
   transition: 0.3s;
 }
 
-/* Efecto al enfocar */
 .input-field::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
@@ -150,7 +169,6 @@ export default {
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
-/* Botón */
 .submit-btn {
   width: 100%;
   background-color: var(--color-primary);
@@ -162,13 +180,11 @@ export default {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Efecto hover */
 .submit-btn:hover {
   background-color: var(--color-dark-secondary);
   transform: scale(1.05);
 }
 
-/* Texto */
 .text-light-secondary {
   color: white;
 }
