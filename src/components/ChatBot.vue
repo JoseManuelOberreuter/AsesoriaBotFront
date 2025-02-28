@@ -55,8 +55,14 @@ export default {
     // 📌 Mensajes iniciales cuando se abre el chatbot
     showIntroMessages() {
       const introMessages = [
-        { text: "¡Hola! Soy AsesoriaBot, tu asistente virtual inteligente. Estoy aquí para brindarte asesoría automatizada y ayudarte a resolver dudas de manera rápida y eficiente. Puedes preguntarme sobre nuestros servicios, soporte técnico o cualquier otra información que necesites. ¡Estoy listo para ayudarte! 😊", sender: "bot" },
-      ];
+            { 
+              text: "👋 <strong>¡Bienvenido a AsesoriaBot!</strong> Soy tu asistente virtual inteligente, diseñado para optimizar la comunicación en tu empresa. 🚀<br><br>" +
+                    "🔹 <strong>Si buscas mejorar la atención a tus clientes</strong>, puedo responder preguntas frecuentes, brindar información sobre tus servicios y optimizar el soporte en tiempo real.<br><br>" +
+                    "🔹 <strong>Si necesitas mejorar la eficiencia interna</strong>, puedo facilitar documentos, automatizar procesos y proporcionar información clave en segundos.<br><br>" +
+                    "💡 <strong>Descubre cómo AsesoriaBot puede potenciar tu negocio.</strong> ¡Hablemos! 💬", 
+              sender: "bot"
+            },
+          ];
 
       this.messages.push(...introMessages);
       this.scrollToBottom();

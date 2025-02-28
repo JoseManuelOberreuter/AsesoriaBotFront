@@ -45,7 +45,7 @@ export default {
       if (window.innerWidth >= 768) {
         this.isOpen = true;
       }
-    }, 5000);
+    }, 8500);
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.checkScreenSize);

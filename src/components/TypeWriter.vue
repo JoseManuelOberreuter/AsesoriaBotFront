@@ -1,5 +1,5 @@
 <template>
-  <span>{{ displayText }}</span>
+  <span v-html="displayText"></span>
 </template>
 
 <script>
@@ -11,13 +11,14 @@ export default {
     },
     speed: {
       type: Number,
-      default: 50 // valor por defecto
+      default: 50
     }
   },
   data() {
     return {
-      displayText: ''
-    }
+      displayText: '',
+      currentIndex: 0
+    };
   },
   mounted() {
     this.typeText();
@@ -25,10 +26,28 @@ export default {
   methods: {
     typeText() {
       let index = 0;
+      let finalText = ""; // Acumulador del texto que se va mostrando
+      const characters = this.text.split(""); // Ahora dividimos el texto carácter por carácter
+
       const interval = setInterval(() => {
-        this.displayText += this.text[index];
+        if (characters[index] === "<") {
+          // Si detecta una etiqueta HTML, la procesa completa
+          let tag = "";
+          while (index < characters.length && characters[index] !== ">") {
+            tag += characters[index];
+            index++;
+          }
+          tag += characters[index]; // Agrega el cierre de la etiqueta ">"
+          finalText += tag; // Agrega la etiqueta HTML completa
+        } else {
+          // Agrega el carácter siguiente de forma normal
+          finalText += characters[index] || "";
+        }
+
+        this.displayText = finalText;
         index++;
-        if (index >= this.text.length) {
+
+        if (index >= characters.length) {
           clearInterval(interval);
         }
       }, this.speed);
