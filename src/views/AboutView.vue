@@ -8,6 +8,7 @@
   
       <!-- Sección: Quiénes Somos -->
       <section class="section">
+        <SideBarMenu />
         <div class="content">
           <div class="text fade-in">
             <h2>¿Quiénes somos?</h2>
@@ -20,15 +21,6 @@
                 Entendemos que en un mundo cada vez más digital, la rapidez y precisión en la gestión de información 
                 son claves para el éxito. Por eso, AsesoriaBot está diseñado para ofrecer respuestas instantáneas, 
                 reduciendo tiempos de espera y permitiendo que tu equipo se enfoque en tareas estratégicas.
-                <br><br>
-                No solo proporcionamos asistencia a clientes externos, sino que también mejoramos la productividad 
-                de los empleados, automatizando consultas internas, generando documentos y centralizando el acceso 
-                a la información relevante. Nuestro objetivo es eliminar la fricción en la comunicación empresarial, 
-                asegurando que cada interacción sea clara, efectiva y orientada a resultados.
-                <br><br>
-                Con tecnología avanzada y personalización total, AsesoriaBot se convierte en un aliado estratégico 
-                para cualquier empresa que desee evolucionar en la era digital. ¡Lleva la automatización al siguiente 
-                nivel y transforma la manera en que interactúas con tu equipo y clientes!
             </p>
           </div>
           <div class="image fade-in-right">
@@ -95,8 +87,12 @@
   </template>
   
   <script>
+  import SideBarMenu from '@/components/SideBarMenu.vue';
   export default {
-    name: 'AboutUs'
+    name: 'AboutUs',
+    components: {
+      SideBarMenu
+    }
   }
   </script>
   
@@ -131,8 +127,8 @@
   }
   
   .hero p {
-    font-size: 1.2rem;
-    max-width: 600px;
+    font-size: 1.8rem;
+    max-width: 1000px;
     margin: 10px auto;
     opacity: 0.9;
   }
@@ -155,7 +151,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    max-width: 500px;
+    max-width: 1000px;
     margin: auto;
     gap: 40px;
   }
@@ -166,8 +162,8 @@
   
   .text {
     flex: 1;
-    text-align: left;
     text-align: justify;
+    font-size: 1.3rem;
   }
   
   .image img {
