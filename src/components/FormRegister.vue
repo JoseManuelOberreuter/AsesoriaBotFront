@@ -48,6 +48,12 @@
       <!-- Mensaje de error -->
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
 
+      <!-- Cambio de view -->
+      <div class="no-count">
+        <p>tienes cuenta?</p>
+        <router-link to="/login">Inicia Sesión</router-link>
+      </div>
+
       <!-- Botón de Envío con Spinner -->
       <button type="submit" :disabled="loading" class="submit-btn">
         <span v-if="loading">Enviando...</span>
@@ -84,13 +90,15 @@ export default {
       this.errorMessage = "";
 
       try {
-        const response = await axios.post("http://localhost:4005/users/register", this.formData);
-        console.log(response.data.message);
+        console.log("📌 Enviando datos al backend:", this.formData); // Log para verificar
 
-        // 📌 Cambiar a estado de confirmación
+        const response = await axios.post("http://localhost:4005/users/register", this.formData);
+        console.log("✅ Respuesta del backend:", response.data.message);
+
+        // Mostrar mensaje de éxito
         this.registrationSuccess = true;
       } catch (error) {
-        console.error("Error en el registro:", error.response?.data);
+        console.error("❌ Error en el registro:", error.response);
         this.errorMessage = error.response?.data?.error || "Error al registrar usuario.";
       } finally {
         this.loading = false;
@@ -178,6 +186,19 @@ export default {
   color: red;
   font-weight: bold;
   margin-top: 5px;
+}
+
+/* Mensaje de no tiene cuenta */
+.no-count {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  color: var(--color-light-secondary);
+  width: 15rem;
+  margin: 0 auto;
+}
+.no-count p {
+  margin-right: 10px;
 }
 
 /* 📌 Botón */

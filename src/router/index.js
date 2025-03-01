@@ -4,6 +4,8 @@ import AboutView from '../views/AboutView.vue';
 import ContactForm from '../views/ContactView.vue';
 import RegisterForm from '../views/RegisterView.vue';
 import LoginView from '../views/LoginView.vue';
+import VerifyView from '@/views/VerifyView.vue';
+import DashboardView from '@/views/DashboardView.vue'
 
 const routes = [
   {
@@ -30,6 +32,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: LoginView
+  },
+  {
+    path: '/verify',
+    name: 'Verify',
+    component: VerifyView
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: DashboardView
   }
 ];
 

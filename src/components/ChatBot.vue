@@ -1,3 +1,5 @@
+<!-- TODO: cambiar el mensaje del principio personalizado -->
+<!-- TODO: agregar la informacion del usuario / empresa personalizado a la api de deepseek-->
 <template>
   <div class="chatbot">
     <div class="messages" ref="messagesContainer">

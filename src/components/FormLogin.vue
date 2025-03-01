@@ -24,9 +24,14 @@
             required
           />
         </div>
-  
+
         <!-- Mensaje de error -->
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+        <div class="no-count">
+          <p>No tienes cuenta?</p>
+          <router-link to="/register">Registrate</router-link>
+        </div>
   
         <!-- Botón de Envío con Spinner -->
         <button type="submit" :disabled="loading" class="submit-btn">
@@ -62,14 +67,12 @@
         this.errorMessage = "";
   
         try {
+          //! Cambiar ULR al servidor real
           const response = await axios.post("http://localhost:4005/users/login", this.formData);
           
           // Guardar el token en localStorage para sesiones
           localStorage.setItem("token", response.data.token);
-          
-          alert("Inicio de sesión exitoso");
-  
-          //! AÑADIR DASHBOARD DE USUARIO INICIADO
+            
           this.router.push("/dashboard"); 
         } catch (error) {
           console.error("Error en el login:", error.response?.data);
@@ -150,6 +153,19 @@
   .form-group input:focus {
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+
+  /* Mensaje de no tiene cuenta */
+  .no-count {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    color: var(--color-light-secondary);
+    width: 15rem;
+    margin: 0 auto;
+  }
+  .no-count p {
+    margin-right: 10px;
   }
   
   /* 📌 Mensaje de error */
