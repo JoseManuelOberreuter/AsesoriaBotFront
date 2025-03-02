@@ -32,20 +32,13 @@ export default {
   name: 'RightSidebar',
   data() {
     return {
-      isOpen: false, // 📌 Siempre inicia cerrado
+      isOpen: true, // 📌 Siempre inicia cerrado
       profileImage: ProfileImage
     };
   },
   mounted() {
     this.checkScreenSize();
     window.addEventListener('resize', this.checkScreenSize);
-
-    // 📌 Abrir automáticamente después de 10 segundos si la pantalla es ≥ 768px
-    setTimeout(() => {
-      if (window.innerWidth >= 768) {
-        this.isOpen = true;
-      }
-    }, 8500);
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.checkScreenSize);

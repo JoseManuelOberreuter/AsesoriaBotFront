@@ -28,9 +28,16 @@
         <!-- Mensaje de error -->
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
 
+        <!-- Mensaje para registrarte -->
         <div class="no-count">
           <p>No tienes cuenta?</p>
           <router-link to="/register">Registrate</router-link>
+        </div>
+        
+        <!-- Mensaje para registrarte -->
+        <div class="no-count">
+          <p>Olvidaste tu contraseña?</p>
+          <router-link to="/forgotpassword">Recuperar</router-link>
         </div>
   
         <!-- Botón de Envío con Spinner -->
@@ -158,16 +165,19 @@
   /* Mensaje de no tiene cuenta */
   .no-count {
     display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
     text-align: center;
-    align-items: center;
     color: var(--color-light-secondary);
-    width: 15rem;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0px auto; 
+    gap: 5px; 
   }
-  .no-count p {
-    margin-right: 10px;
+
+  .no-count p{
+    margin: 5px;
   }
-  
+
   /* 📌 Mensaje de error */
   .error-message {
     color: red;

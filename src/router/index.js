@@ -6,6 +6,8 @@ import RegisterForm from '../views/RegisterView.vue';
 import LoginView from '../views/LoginView.vue';
 import VerifyView from '@/views/VerifyView.vue';
 import DashboardView from '@/views/DashboardView.vue'
+import ForgotPasswordView from '@/views/ForgotPasswordView.vue';
+import ResetPassword from '@/views/ResetPassword.vue'
 
 const routes = [
   {
@@ -42,6 +44,16 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: DashboardView
+  },
+  {
+    path: '/forgotpassword',
+    name: 'ForgotPasswordView',
+    component: ForgotPasswordView
+  },
+  {
+    path: '/resetpassword',
+    name: 'ResetPassword',
+    component: ResetPassword
   }
 ];
 

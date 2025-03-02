@@ -1,12 +1,14 @@
 <template>
+    <SideBarMenu />
     <PlanCards :plans="plans" :selectedPlan="selectedPlan" @plan-selected="handlePlanSelected" />
     <FormContact :plans="plans" :selectedPlan="selectedPlan" />
-  </template>
+</template>
   
   <script setup>
   import { ref, nextTick } from 'vue'
   import PlanCards from '@/components/PlanCards.vue'
   import FormContact from '@/components/FormContact.vue'
+  import SideBarMenu from '@/components/SideBarMenu.vue'
   
   const plans = [
     {
