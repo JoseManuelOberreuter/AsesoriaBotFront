@@ -8,6 +8,8 @@
       <nav>
         <ul class="chat-list">
           <li class="first-item">
+            <!--! Agregar boton -->
+            <!-- <router-link to="/contact" class="contact-btn">Personalizar Asesor</router-link> -->
             <button @click="addChat">Nuevo Chat</button>
           </li>
 

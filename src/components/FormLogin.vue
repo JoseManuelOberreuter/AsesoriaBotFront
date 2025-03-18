@@ -1,98 +1,101 @@
 <template>
-    <div class="container-form">
-      <form @submit.prevent="submitLogin" class="glassmorphism">
-        <h2 class="title">Iniciar Sesión</h2>
-  
-        <!-- Correo -->
-        <div class="form-group">
-          <label>Correo Electrónico</label>
-          <input 
-            v-model="formData.email"
-            type="email"
-            placeholder="Ingresa tu correo"
-            required
-          />
-        </div>
-  
-        <!-- Contraseña -->
-        <div class="form-group">
-          <label>Contraseña</label>
-          <input 
-            v-model="formData.password"
-            type="password"
-            placeholder="Ingresa tu contraseña"
-            required
-          />
-        </div>
+  <div class="container-form">
+    <form @submit.prevent="submitLogin" class="glassmorphism">
+      <h2 class="title">Iniciar Sesión</h2>
 
-        <!-- Mensaje de error -->
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <!-- Correo -->
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input 
+          v-model="formData.email"
+          type="email"
+          placeholder="Ingresa tu correo"
+          required
+        />
+      </div>
 
-        <!-- Mensaje para registrarte -->
-        <div class="no-count">
-          <p>No tienes cuenta?</p>
-          <router-link to="/register">Registrate</router-link>
-        </div>
-        
-        <!-- Mensaje para registrarte -->
-        <div class="no-count">
-          <p>Olvidaste tu contraseña?</p>
-          <router-link to="/forgotpassword">Recuperar</router-link>
-        </div>
-  
-        <!-- Botón de Envío con Spinner -->
-        <button type="submit" :disabled="loading" class="submit-btn">
-          <span v-if="loading">Verificando...</span>
-          <span v-else>Ingresar</span>
-        </button>
-      </form>
-    </div>
-  </template>
-  
-  <script>
-  import axios from "axios";
-  import { useRouter } from "vue-router";
-  
-  export default {
-    data() {
-      return {
-        formData: {
-          email: "",
-          password: "",
-        },
-        loading: false,
-        errorMessage: "",
-      };
-    },
-    setup() {
-      const router = useRouter();
-      return { router };
-    },
-    methods: {
-      async submitLogin() {
-        this.loading = true;
-        this.errorMessage = "";
-  
-        try {
-          //! Cambiar ULR al servidor real
-          const response = await axios.post("http://localhost:4005/users/login", this.formData);
-          
-          // Guardar el token en localStorage para sesiones
-          localStorage.setItem("token", response.data.token);
-            
-          this.router.push("/dashboard"); 
-        } catch (error) {
-          console.error("Error en el login:", error.response?.data);
-          this.errorMessage = error.response?.data?.error || "Error al iniciar sesión.";
-        } finally {
-          this.loading = false;
-        }
+      <!-- Contraseña -->
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input 
+          v-model="formData.password"
+          type="password"
+          placeholder="Ingresa tu contraseña"
+          required
+        />
+      </div>
+
+      <!-- Mensaje de error -->
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+      <!-- Mensaje para registrarte -->
+      <div class="no-count">
+        <p>No tienes cuenta?</p>
+        <router-link to="/register">Registrate</router-link>
+      </div>
+      
+      <!-- Mensaje para recuperar contraseña -->
+      <div class="no-count">
+        <p>Olvidaste tu contraseña?</p>
+        <router-link to="/forgotpassword">Recuperar</router-link>
+      </div>
+
+      <!-- Botón de Envío con Spinner -->
+      <button type="submit" :disabled="loading" class="submit-btn">
+        <span v-if="loading">Verificando...</span>
+        <span v-else>Ingresar</span>
+      </button>
+    </form>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+import { useRouter } from "vue-router";
+import { useUserStore } from '../store/userStore'; // Importar el store de Pinia
+
+export default {
+  data() {
+    return {
+      formData: {
+        email: "",
+        password: "",
       },
+      loading: false,
+      errorMessage: "",
+    };
+  },
+  setup() {
+    const router = useRouter();
+    const userStore = useUserStore(); // Obtener el store de Pinia
+    return { router, userStore };
+  },
+  methods: {
+    async submitLogin() {
+      this.loading = true;
+      this.errorMessage = "";
+
+      try {
+        // Cambiar URL al servidor real
+        const response = await axios.post("http://localhost:4005/users/login", this.formData);
+
+        // Guardar el token y los datos del usuario en Pinia
+        this.userStore.setToken(response.data.token);
+        
+        // Redirigir al dashboard
+        this.router.push("/dashboard");
+      } catch (error) {
+        console.error("Error en el login:", error.response?.data);
+        this.errorMessage = error.response?.data?.error || "Error al iniciar sesión.";
+      } finally {
+        this.loading = false;
+      }
     },
-  };
-  </script>
+  },
+};
+</script>
   
-  <style scoped>
+<style scoped>
   /* 📌 Usando las variables de color */
   :root {
     --color-primary: #AD8B73;
