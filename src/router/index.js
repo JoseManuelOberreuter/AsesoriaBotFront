@@ -7,7 +7,7 @@ import LoginView from '../views/LoginView.vue';
 import VerifyView from '@/views/VerifyView.vue';
 import DashboardView from '@/views/DashboardView.vue'
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue';
-import ResetPassword from '@/views/ResetPassword.vue'
+import ResetPassword from '@/views/ResetPasswordView.vue'
 
 const routes = [
   {
