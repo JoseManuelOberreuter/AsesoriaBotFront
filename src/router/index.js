@@ -8,6 +8,7 @@ import VerifyView from '@/views/VerifyView.vue';
 import DashboardView from '@/views/DashboardView.vue'
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue';
 import ResetPassword from '@/views/ResetPasswordView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     path: '/resetpassword',
     name: 'ResetPassword',
     component: ResetPassword
+  },
+  {
+    path: '/profile',
+    name: 'ProfileView',
+    component: ProfileView
   }
 ];
 
