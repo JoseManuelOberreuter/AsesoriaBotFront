@@ -1,6 +1,5 @@
-// src/store/documentStore.js
+import axios from '@/api/axios';
 import { defineStore } from 'pinia';
-import axios from 'axios';
 import { useUserStore } from './userStore';
 
 export const useDocumentStore = defineStore('document', {
@@ -11,7 +10,7 @@ export const useDocumentStore = defineStore('document', {
     async fetchDocuments(botId) {
       const userStore = useUserStore();
       try {
-        const response = await axios.get(`http://localhost:4005/documents/${botId}`, {
+        const response = await axios.get(`/documents/${botId}`, {
           headers: {
             Authorization: `Bearer ${userStore.token}`,
           },

@@ -1,62 +1,62 @@
 <template>
-    <div class="verification-container">
-      <div class="verification-card">
-        <h2 class="fade-in" v-if="verificationStatus === 'loading'">
-          🔄 Verificando cuenta...
-        </h2>
-        <h2 class="success fade-in" v-else-if="verificationStatus === 'success'">
-          🎉 ¡Cuenta verificada con éxito!
-        </h2>
-        <h2 class="error fade-in" v-else>
-          ❌ Error verificando tu cuenta
-        </h2>
-  
-        <p v-if="verificationStatus === 'success'" class="fade-in">
-          Ya puedes iniciar sesión:
-        </p>
-        <router-link 
-          v-if="verificationStatus === 'success'" 
-          to="/login" 
-          class="login-btn fade-in"
-        >
-          Iniciar Sesión
-        </router-link>
-      </div>
+  <div class="verification-container">
+    <div class="verification-card">
+      <h2 class="fade-in" v-if="verificationStatus === 'loading'">
+        🔄 Verificando cuenta...
+      </h2>
+      <h2 class="success fade-in" v-else-if="verificationStatus === 'success'">
+        🎉 ¡Cuenta verificada con éxito!
+      </h2>
+      <h2 class="error fade-in" v-else>
+        ❌ Error verificando tu cuenta
+      </h2>
+
+      <p v-if="verificationStatus === 'success'" class="fade-in">
+        Ya puedes iniciar sesión:
+      </p>
+      <router-link 
+        v-if="verificationStatus === 'success'" 
+        to="/login" 
+        class="login-btn fade-in"
+      >
+        Iniciar Sesión
+      </router-link>
     </div>
-  </template>
+  </div>
+</template>
   
-  <script>
-  import axios from "axios";
-  import { useRoute } from "vue-router";
-  
-  export default {
-    data() {
-      return {
-        verificationStatus: "loading",
-      };
-    },
-    async created() {
-      const route = useRoute();
-      const token = route.query.token; // Captura el token desde la URL
-  
-      if (!token) {
-        this.verificationStatus = "error";
-        return;
-      }
-  
-      try {
-        const response = await axios.get(`http://localhost:4005/users/verify/${token}`);
-        console.log("✅ Respuesta del backend:", response.data.message);
-        this.verificationStatus = "success";
-      } catch (error) {
-        console.error("❌ Error en la verificación:", error.response?.data);
-        this.verificationStatus = "error";
-      }
+<script>
+import axios from '@/api/axios';
+import { useRoute } from "vue-router";
+
+export default {
+  data() {
+    return {
+      verificationStatus: "loading",
+    };
+  },
+  async created() {
+    const route = useRoute();
+    const token = route.query.token; // Captura el token desde la URL
+
+    if (!token) {
+      this.verificationStatus = "error";
+      return;
     }
-  };
-  </script>
+
+    try {
+      const response = await axios.get(`/users/verify/${token}`);
+      console.log("✅ Respuesta del backend:", response.data.message);
+      this.verificationStatus = "success";
+    } catch (error) {
+      console.error("❌ Error en la verificación:", error.response?.data);
+      this.verificationStatus = "error";
+    }
+  }
+};
+</script>
   
-  <style scoped>
+<style scoped>
   /* 🎨 Centrar el contenido en pantalla */
   .verification-container {
     display: flex;
@@ -120,5 +120,4 @@
     background-color: #45A049;
     transform: scale(1.05);
   }
-  </style>
-  
+</style>

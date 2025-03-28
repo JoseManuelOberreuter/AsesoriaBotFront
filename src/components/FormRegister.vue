@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from '@/api/axios';
 import { useRouter } from "vue-router";
 
 export default {
@@ -92,7 +92,7 @@ export default {
       try {
         console.log("📌 Enviando datos al backend:", this.formData); // Log para verificar
 
-        const response = await axios.post("http://localhost:4005/users/register", this.formData);
+        const response = await axios.post("/users/register", this.formData);
         console.log("✅ Respuesta del backend:", response.data.message);
 
         // Mostrar mensaje de éxito

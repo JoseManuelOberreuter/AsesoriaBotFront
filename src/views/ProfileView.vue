@@ -39,7 +39,7 @@
 import { useUserStore } from "@/store/userStore";
 import { ref, onMounted } from "vue";
 import defaultAvatar from "@/assets/UserLogo.png";
-import axios from "axios";
+import axios from '@/api/axios';
 
 export default {
   setup() {
@@ -68,7 +68,7 @@ export default {
       try {
         isUploading.value = true; // 📌 Activar loading
 
-        const response = await axios.post("http://localhost:4005/users/upload-avatar", formData, {
+        const response = await axios.post("/users/upload-avatar", formData, {
           headers: {
             Authorization: `Bearer ${userStore.token}`,
             "Content-Type": "multipart/form-data",
@@ -91,7 +91,7 @@ export default {
       try {
         const updateData = { name: userStore.userData.name }; // Solo enviamos datos de texto
 
-        await axios.put(`http://localhost:4005/users/update/${userStore.userData._id}`, updateData, {
+        await axios.put(`/users/update/${userStore.userData._id}`, updateData, {
           headers: {
             Authorization: `Bearer ${userStore.token}`,
           },

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import axios from '@/api/axios';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -22,7 +22,7 @@ export const useUserStore = defineStore('user', {
     async fetchUserData() {
       if (this.token) {
         try {
-          const response = await axios.get("http://localhost:4005/users/user-data", {
+          const response = await axios.get("/users/user-data", {
             headers: {
               Authorization: `Bearer ${this.token}`,
             },

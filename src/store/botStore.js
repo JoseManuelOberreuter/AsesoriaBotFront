@@ -1,6 +1,5 @@
-// src/store/botStore.js
+import axios from '@/api/axios';
 import { defineStore } from 'pinia';
-import axios from 'axios';
 import { useUserStore } from './userStore';
 
 export const useBotStore = defineStore('bot', {
@@ -11,7 +10,7 @@ export const useBotStore = defineStore('bot', {
     async fetchBots() {
       const userStore = useUserStore();
       try {
-        const response = await axios.get("http://localhost:4005/bots/mine", {
+        const response = await axios.get("/bots/mine", {
           headers: {
             Authorization: `Bearer ${userStore.token}`,
           },

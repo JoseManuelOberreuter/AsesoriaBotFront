@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from '@/api/axios';
 import { useRoute } from "vue-router";
 import SideBarMenu from "../components/SideBarMenu.vue";
 
@@ -83,7 +83,7 @@ export default {
             this.message = "";
 
             try {
-                const response = await axios.post(`http://localhost:4005/users/reset-password/${this.token}`, {
+                const response = await axios.post(`/users/reset-password/${this.token}`, {
                     password: this.password
                 });
 

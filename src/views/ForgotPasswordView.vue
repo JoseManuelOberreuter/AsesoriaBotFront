@@ -26,7 +26,7 @@
   </template>
   
   <script>
-  import axios from "axios";
+  import axios from '@/api/axios';
   import SideBarMenu from "@/components/SideBarMenu.vue";
   
   export default {
@@ -48,7 +48,7 @@
   
         try {
             //! Cambiar link
-          const response = await axios.post("http://localhost:4005/users/forgot-password", { email: this.email });
+          const response = await axios.post("/users/forgot-password", { email: this.email });
           this.message = response.data.message;
           this.messageType = "success";
         } catch (error) {

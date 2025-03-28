@@ -33,7 +33,7 @@ import '@/styles/index.css';
 import LogoAsesoriaBot from '@/assets/LogoAsesoriaBot.png';
 import UserLogo from '@/assets/UserLogo.png';
 import TypeWriter from './TypeWriter.vue';
-import axios from 'axios';
+import axios from '@/api/axios';
 
 export default {
   name: 'ChatBot',
@@ -87,7 +87,7 @@ export default {
     // 📌 Llama a la API del bot y agrega la respuesta a la conversación
     async getBotReply(userMessage) {
       try {
-        const response = await axios.post('http://localhost:4005/chat', { prompt: userMessage });
+        const response = await axios.post('/chat', { prompt: userMessage });
         this.messages.push({ text: response.data.respuesta, sender: 'bot' });
       } catch (error) {
         console.error('Error al obtener la respuesta del bot:', error);

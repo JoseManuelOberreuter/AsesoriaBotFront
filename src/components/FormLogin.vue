@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from '@/api/axios';
 import { useRouter } from "vue-router";
 import { useUserStore } from '../store/userStore'; // Importar el store de Pinia
 
@@ -77,7 +77,7 @@ export default {
 
       try {
         // Cambiar URL al servidor real
-        const response = await axios.post("http://localhost:4005/users/login", this.formData);
+        const response = await axios.post("/users/login", this.formData);
 
         // Guardar el token y los datos del usuario en Pinia
         this.userStore.setToken(response.data.token);
