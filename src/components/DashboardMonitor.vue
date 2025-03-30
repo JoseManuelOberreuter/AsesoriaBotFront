@@ -24,7 +24,7 @@
 
     <div class="quick-actions">
       <router-link to="/createbot" class="quick-actions-button">➕ Crear Bot</router-link>
-      <button @click="navigateToDocuments" class="quick-actions-button">📎 Ver Documentos</button>
+      <router-link to="/uploaddocument" class="quick-actions-button">📎 Ver Documentos</router-link>
       <button @click="navigateToChats" class="quick-actions-button">💬 Ver Chats</button>
     </div>
   </main>
