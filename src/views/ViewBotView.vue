@@ -3,7 +3,7 @@
     <h2>👁️ Ver Bot</h2>
     <div v-if="loading" class="loading">Cargando...</div>
     <div v-else-if="error" class="error-message">❌ {{ errorMessage }}</div>
-    <div v-else-if="bot" class="bot-details">
+    <div v-else class="bot-details">
       <div class="detail-group">
         <h3>Información General</h3>
         <div class="detail-item">
@@ -12,33 +12,22 @@
         </div>
         <div class="detail-item">
           <span class="label">Tipo:</span>
-          <span class="value">{{ getTypeLabel(bot.type) }}</span>
+          <span class="value">{{ getBotTypeName(bot.type) }}</span>
         </div>
         <div class="detail-item">
           <span class="label">Creado:</span>
           <span class="value">{{ new Date(bot.createdAt).toLocaleDateString() }}</span>
         </div>
-        <div v-if="bot.description" class="detail-item">
-          <span class="label">Descripción:</span>
-          <span class="value">{{ bot.description }}</span>
-        </div>
       </div>
 
       <div class="detail-group">
-        <h3>Estadísticas</h3>
-        <div class="detail-item">
-          <span class="label">Conversaciones:</span>
-          <span class="value">{{ bot.conversations || 0 }}</span>
-        </div>
-        <div class="detail-item">
-          <span class="label">Documentos:</span>
-          <span class="value">{{ documents.length }}</span>
-        </div>
+        <h3>Descripción</h3>
+        <p class="description">{{ bot.description || 'No hay descripción disponible' }}</p>
       </div>
 
       <div class="button-group">
-        <button @click="router.push(`/bot/edit/${bot._id}`)" class="edit-btn">✏️ Editar</button>
-        <button @click="router.push('/dashboard')" class="back-btn">← Volver</button>
+        <button @click="goToEdit" class="edit-btn">✏️ Editar</button>
+        <button @click="goBack" class="back-btn">← Volver</button>
       </div>
     </div>
   </div>
@@ -48,21 +37,18 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/store/userStore';
-import { useDocumentStore } from '@/store/documentStore';
 import axios from '@/api/axios';
 
 const route = useRoute();
 const router = useRouter();
 const userStore = useUserStore();
-const documentStore = useDocumentStore();
 
 const loading = ref(true);
 const error = ref(false);
 const errorMessage = ref('');
-const bot = ref(null);
-const documents = ref([]);
+const bot = ref({});
 
-const getTypeLabel = (type) => {
+const getBotTypeName = (type) => {
   const types = {
     support: 'Soporte',
     internal: 'Interno',
@@ -77,76 +63,83 @@ onMounted(async () => {
       headers: { Authorization: `Bearer ${userStore.token}` },
     });
     bot.value = response.data;
-    
-    // Fetch documents for this bot
-    await documentStore.fetchDocuments(route.params.id);
-    documents.value = documentStore.documents;
+    loading.value = false;
   } catch (err) {
     console.error('❌ Error al cargar el bot:', err);
     error.value = true;
     errorMessage.value = 'No se pudo cargar la información del bot.';
-  } finally {
     loading.value = false;
   }
 });
+
+const goToEdit = () => {
+  router.push(`/bot/edit/${route.params.id}`);
+};
+
+const goBack = () => {
+  router.push('/dashboard');
+};
 </script>
 
 <style scoped>
 .view-bot-container {
   max-width: 600px;
-  margin: 50px auto;
+  margin: 3rem auto;
   background: var(--color-light-secondary);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.detail-group {
+  margin-bottom: 2rem;
 }
 
 h3 {
   color: var(--color-primary);
-  margin-bottom: 15px;
-  border-bottom: 2px solid var(--color-secondary);
-  padding-bottom: 5px;
-}
-
-.detail-group {
-  margin-bottom: 25px;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 0.5rem;
 }
 
 .detail-item {
   display: flex;
-  margin-bottom: 10px;
-  padding: 8px;
-  background: var(--color-background);
-  border-radius: 5px;
+  margin-bottom: 1rem;
 }
 
 .label {
   font-weight: bold;
-  min-width: 120px;
-  color: var(--color-secondary);
+  width: 120px;
+  color: var(--color-dark-secondary);
 }
 
 .value {
   flex: 1;
 }
 
+.description {
+  line-height: 1.6;
+  color: #333;
+}
+
 .button-group {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 .edit-btn, .back-btn {
-  padding: 10px 15px;
+  padding: 0.8rem 1.5rem;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 8px;
   font-size: 1rem;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
@@ -156,7 +149,7 @@ h3 {
 }
 
 .back-btn {
-  background: var(--color-secondary);
+  background: #6c757d;
   color: white;
 }
 
@@ -165,7 +158,7 @@ h3 {
 }
 
 .back-btn:hover {
-  background: var(--color-dark-secondary);
+  background: #5a6268;
 }
 
 .loading {
@@ -176,7 +169,7 @@ h3 {
 
 .error-message {
   text-align: center;
+  color: #dc3545;
   font-weight: bold;
-  color: red;
 }
 </style> 

@@ -76,14 +76,14 @@ const routes = [
     component: UploadDocumentView
   },
   {
-    path: '/bot/edit/:id',
-    name: 'EditBot',
-    component: EditBotView
-  },
-  {
     path: '/bot/:id',
     name: 'ViewBot',
     component: ViewBotView
+  },
+  {
+    path: '/bot/edit/:id',
+    name: 'EditBot',
+    component: EditBotView
   }
 ];
 
