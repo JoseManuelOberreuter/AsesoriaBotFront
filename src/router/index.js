@@ -11,6 +11,8 @@ import ResetPassword from '@/views/ResetPasswordView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import CreateBotView from '@/views/CreateBotView.vue'
 import UploadDocumentView from '@/views/UploadDocumentView.vue'
+import EditBotView from '@/views/EditBotView.vue'
+import ViewBotView from '@/views/ViewBotView.vue'
 
 const routes = [
   {
@@ -72,6 +74,16 @@ const routes = [
     path: '/uploaddocument',
     name: 'UploadDocument',
     component: UploadDocumentView
+  },
+  {
+    path: '/bot/edit/:id',
+    name: 'EditBot',
+    component: EditBotView
+  },
+  {
+    path: '/bot/:id',
+    name: 'ViewBot',
+    component: ViewBotView
   }
 ];
 
