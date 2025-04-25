@@ -8,8 +8,10 @@
 
       <!-- Logo y nombre de la aplicación -->
       <div class="sidebar-header">
-        <img :src="profileImage" alt="AsesoriaBot" class="sidebar-logo" />
-        <h3>AsesoriaBot</h3>
+        <img :src="profileImage" alt="AsesorIA" class="sidebar-logo" />
+        <router-link to="/" class="brand-link">
+          <h3>AsesorIA</h3>
+        </router-link>
       </div>
 
       <!-- Navegación principal -->
@@ -143,12 +145,21 @@ export default {
   object-fit: cover;
 }
 
+.brand-link {
+  text-decoration: none;
+}
+
 .sidebar-header h3 {
   font-size: 1.4rem;
   font-weight: 600;
   margin: 0;
   letter-spacing: 0.5px;
   color: var(--color-light-secondary);
+  transition: color 0.2s ease;
+}
+
+.brand-link:hover h3 {
+  color: var(--color-primary);
 }
 
 .sidebar-nav {
