@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <main>
-      <!-- Este se encarga de renderizar la vista correspondiente a la ruta actual -->
-      <router-view />
-    </main>
+    <router-view v-slot="{ Component }">
+      <component :is="Component" />
+    </router-view>
   </div>
 </template>
 
@@ -14,7 +13,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+/* Estilos globales */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,13 +32,5 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-
-
-main {
-  flex: 1;
-  overflow-y: auto;
 }
 </style>

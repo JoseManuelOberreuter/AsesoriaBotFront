@@ -1,8 +1,8 @@
 <template>
     <FormLogin />
-    <SideBarMenu />
+    <HeaderNav />
 </template>
 <script setup>
 import FormLogin from '@/components/FormLogin.vue';
-import SideBarMenu from '@/components/SideBarMenu.vue';
+import HeaderNav from '@/components/HeaderNav.vue';
 </script>

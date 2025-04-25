@@ -1,5 +1,5 @@
 <template>
-  <SideBarMenu />
+  <HeaderNav />
   <div class="container-form">
     <form @submit.prevent="sendResetEmail" class="form-card">
       <div class="form-header">
@@ -56,7 +56,7 @@
 
 <script>
 import axios from '@/api/axios';
-import SideBarMenu from "@/components/SideBarMenu.vue";
+import HeaderNav from '@/components/HeaderNav.vue';
 
 export default {
   data() {
@@ -68,7 +68,7 @@ export default {
     };
   },
   components: {
-    SideBarMenu
+    HeaderNav
   },
   methods: {
     async sendResetEmail() {

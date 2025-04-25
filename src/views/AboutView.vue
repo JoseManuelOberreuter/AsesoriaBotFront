@@ -8,7 +8,7 @@
   
       <!-- Sección: Quiénes Somos -->
       <section class="section">
-        <SideBarMenu />
+        <HeaderNav />
         <div class="content">
           <div class="text fade-in">
             <h2>¿Quiénes somos?</h2>
@@ -87,11 +87,11 @@
   </template>
   
   <script>
-  import SideBarMenu from '@/components/SideBarMenu.vue';
+  import HeaderNav from '@/components/HeaderNav.vue';
   export default {
     name: 'AboutUs',
     components: {
-      SideBarMenu
+      HeaderNav
     }
   }
   </script>

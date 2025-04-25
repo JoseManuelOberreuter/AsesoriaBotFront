@@ -1,5 +1,5 @@
 <template>
-    <SideBarMenu />
+    <HeaderNav />
     <div class="reset-password-container">
       <form v-if="!success" @submit.prevent="resetPassword" class="glassmorphism">
         <h2 class="title">Restablecer Contraseña</h2>
@@ -45,11 +45,11 @@
 <script>
 import axios from '@/api/axios';
 import { useRoute } from "vue-router";
-import SideBarMenu from "../components/SideBarMenu.vue";
+import HeaderNav from '@/components/HeaderNav.vue';
 
 export default {
     components: {
-        SideBarMenu
+        HeaderNav
     },
     data() {
         return {

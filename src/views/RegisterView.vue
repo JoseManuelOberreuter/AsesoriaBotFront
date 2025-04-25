@@ -1,8 +1,8 @@
 <template>
-    <FormContact />
-    <SideBarMenu />
+    <FormRegister />
+    <HeaderNav />
 </template>
 <script setup>
-import FormContact from '@/components/FormRegister.vue';
-import SideBarMenu from '@/components/SideBarMenu.vue';
+import FormRegister from '@/components/FormRegister.vue';
+import HeaderNav from '@/components/HeaderNav.vue';
 </script>
