@@ -1,39 +1,31 @@
 <template>
   <main class="dashboard-content">
-    <div class="dashboard-header">
-      <h1>🤖 Panel de Control</h1>
-      <p>Gestiona y monitorea tus bots de asesoría</p>
-    </div>
+    <h1><font-awesome-icon icon="chart-bar" /> Dashboard</h1>
+    <p>Monitorea el rendimiento de tus bots y la actividad de tus usuarios</p>
 
     <div class="stats">
       <div class="stat-card">
-        <h2>🤖 Bots Activos</h2>
+        <h2><font-awesome-icon icon="robot" /> Bots Activos</h2>
         <p>{{ botStore.bots.length }}</p>
       </div>
       <div class="stat-card">
-        <h2>💬 Conversaciones</h2>
+        <h2><font-awesome-icon icon="comment" /> Conversaciones</h2>
         <p>{{ totalConversations }}</p>
       </div>
       <div class="stat-card">
-        <h2>👤 Usuarios</h2>
-        <p>1</p>
+        <h2><font-awesome-icon icon="user" /> Usuarios</h2>
+        <p>1</p> <!-- Solo tú por ahora -->
       </div>
       <div class="stat-card">
-        <h2>📊 Rendimiento</h2>
-        <p>{{ performanceScore }}%</p>
+        <h2><font-awesome-icon icon="exclamation-triangle" /> Problemas</h2>
+        <p>0</p>
       </div>
     </div>
 
     <div class="quick-actions">
-      <router-link to="/createbot" class="quick-actions-button primary">
-        <span>➕ Crear Nuevo Bot</span>
-      </router-link>
-      <router-link to="/uploaddocument" class="quick-actions-button">
-        <span>📚 Gestionar Documentos</span>
-      </router-link>
-      <button @click="navigateToChats" class="quick-actions-button">
-        <span>💬 Ver Conversaciones</span>
-      </button>
+      <router-link to="/createbot" class="quick-actions-button"><font-awesome-icon icon="plus" /> Crear Bot</router-link>
+      <router-link to="/uploaddocument" class="quick-actions-button"><font-awesome-icon icon="paperclip" /> Ver Documentos</router-link>
+      <button @click="navigateToChats" class="quick-actions-button"><font-awesome-icon icon="comment" /> Ver Chats</button>
     </div>
   </main>
 </template>
@@ -44,9 +36,8 @@ import { useBotStore } from '@/store/botStore';
 import { useRouter } from 'vue-router';
 
 const botStore = useBotStore();
-const router = useRouter();
 const totalConversations = ref(0);
-const performanceScore = ref(95);
+const router = useRouter();
 
 const navigateToCreateBot = () => router.push('/create-bot');
 const navigateToDocuments = () => router.push('/documents');
@@ -54,6 +45,8 @@ const navigateToChats = () => router.push('/chats');
 
 onMounted(async () => {
   await botStore.fetchBots();
+
+  // 🔢 Simula cantidad de conversaciones (ajusta si tienes endpoint real)
   totalConversations.value = botStore.bots.reduce(
     (sum, bot) => sum + (bot.conversations || 0),
     0
@@ -63,85 +56,63 @@ onMounted(async () => {
 
 <style scoped>
 .dashboard-content {
+  text-align: justify;
   background: var(--color-light-secondary);
-  padding: 2rem;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-header {
-  margin-bottom: 2rem;
-}
-
-.dashboard-header h1 {
-  color: var(--color-primary);
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.dashboard-header p {
-  color: var(--color-text-secondary);
-}
-
 .stats {
   display: flex;
-  gap: 1rem;
+  gap: 20px;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-top: 20px;
   flex-wrap: wrap;
 }
 
 .stat-card {
   background: var(--color-secondary);
-  padding: 1.5rem;
-  min-width: 150px;
+  padding: 20px;
+  width: 100px;
+  max-width: 200px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
   text-align: center;
   color: var(--color-light-secondary);
-  transition: transform 0.2s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-2px);
 }
 
 .stat-card h2 {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-size: 14px;
 }
 
 .stat-card p {
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: bold;
-  margin: 0;
+  margin-top: 5px;
 }
 
 .quick-actions {
+  margin-top: 30px;
   display: flex;
-  gap: 1rem;
+  gap: 15px;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
 .quick-actions-button {
-  background: var(--color-secondary);
-  color: var(--color-light-secondary);
+  background: var(--color-primary);
+  color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
   text-decoration: none;
 }
 
-.quick-actions-button.primary {
-  background: var(--color-primary);
-}
-
-.quick-actions-button:hover {
-  transform: translateY(-2px);
+.quick-actions button:hover {
   background: var(--color-dark-secondary);
 }
 </style>

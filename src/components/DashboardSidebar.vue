@@ -3,7 +3,7 @@
     <aside :class="['right-sidebar', { open: isOpen }]">
       <!-- Botón para abrir/cerrar -->
       <button class="toggle-btn" @click="toggleSidebar">
-        {{ isOpen ? '❯' : '❮' }}
+        <font-awesome-icon :icon="isOpen ? 'chevron-right' : 'chevron-left'" />
       </button>
 
       <!-- Sección del perfil -->
