@@ -27,13 +27,18 @@
           <font-awesome-icon icon="lock" class="input-icon" />
           Contraseña
         </label>
-        <input 
-          v-model="formData.password"
-          type="password"
-          id="password"
-          placeholder="Ingresa tu contraseña"
-          required
-        />
+        <div class="password-input-container">
+          <input 
+            v-model="formData.password"
+            :type="showPassword ? 'text' : 'password'"
+            id="password"
+            placeholder="Ingresa tu contraseña"
+            required
+          />
+          <div class="show-password-toggle" @click="togglePasswordVisibility">
+            <font-awesome-icon :icon="showPassword ? 'eye-slash' : 'eye'" class="password-toggle-icon" :class="{ 'visible': showPassword }" />
+          </div>
+        </div>
       </div>
 
       <!-- Mensaje de error -->
@@ -91,6 +96,7 @@ export default {
       },
       loading: false,
       errorMessage: "",
+      showPassword: false,
     };
   },
   setup() {
@@ -99,6 +105,9 @@ export default {
     return { router, userStore };
   },
   methods: {
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    },
     async submitLogin() {
       this.loading = true;
       this.errorMessage = "";
@@ -176,6 +185,34 @@ export default {
 .form-group {
   padding: 12px 30px;
   position: relative;
+}
+
+.password-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.show-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--color-dark-secondary);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.show-password-toggle:hover {
+  opacity: 1;
+}
+
+.password-toggle-icon {
+  font-size: 18px;
+}
+
+.password-toggle-icon.visible {
+  color: var(--color-primary);
 }
 
 .form-group:last-of-type {
