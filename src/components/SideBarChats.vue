@@ -2,20 +2,30 @@
   <div>
     <aside :class="['sidebar', { open: isOpen }]">
       <button class="toggle-btn" @click="toggleSidebar">
-        {{ isOpen ? '❮' : '❯' }}
+        <font-awesome-icon :icon="isOpen ? 'chevron-left' : 'chevron-right'" />
       </button>
 
-      <nav>
-        <ul class="chat-list">
-          <li class="first-item">
-            <!--! Agregar boton -->
-            <!-- <router-link to="/contact" class="contact-btn">Personalizar Asesor</router-link> -->
-            <button @click="addChat">Nuevo Chat</button>
-          </li>
+      <!-- Encabezado del sidebar -->
+      <div class="sidebar-header">
+        <font-awesome-icon icon="comment" class="sidebar-logo" />
+        <h3>Conversaciones</h3>
+      </div>
 
-          <div class="chat-container">
+      <!-- Botón de nuevo chat -->
+      <button @click="addChat" class="new-chat-btn">
+        <font-awesome-icon icon="plus" />
+        <span>Nuevo Chat</span>
+      </button>
+
+      <!-- Lista de chats con scroll -->
+      <div class="chat-container">
+        <nav>
+          <ul class="chat-list">
             <li v-for="(chat, index) in chats" :key="index" class="chat-item">
-              <span v-if="!chat.isEditing" @click="editChat(index)">{{ chat.name }}</span>
+              <span v-if="!chat.isEditing" @click="editChat(index)" class="chat-name">
+                <font-awesome-icon icon="comment" class="chat-icon" />
+                {{ chat.name }}
+              </span>
               <input 
                 v-else 
                 v-model="chat.name" 
@@ -25,13 +35,17 @@
                 autofocus
               />
               <div class="chat-actions">
-                <button class="edit-btn" @click="editChat(index)">✏️</button>
-                <button class="delete-btn" @click="deleteChat(index)">🗑️</button>
+                <button class="edit-btn" @click="editChat(index)">
+                  <font-awesome-icon icon="edit" />
+                </button>
+                <button class="delete-btn" @click="deleteChat(index)">
+                  <font-awesome-icon icon="chevron-left" class="delete-icon" />
+                </button>
               </div>
             </li>
-          </div>
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      </div>
     </aside>
   </div>
 </template>
@@ -75,65 +89,97 @@ export default {
 </script>
 
 <style scoped>
-/* Sidebar izquierdo */
 .sidebar {
-  width: 250px;
-  background-color: var(--color-secondary);
-  padding: 2rem 1rem;
+  width: 280px;
+  background: var(--color-secondary);
+  padding: 1.5rem 1rem;
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease;
   transform: translateX(-100%);
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  color: var(--color-light-secondary);
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar.open {
   transform: translateX(0);
 }
 
-/* Botón dentro del sidebar */
 .toggle-btn {
   position: absolute;
-  top: 45%;
-  right: -40px;
-  width: 40px;
-  height: 40px;
-  background-color: var(--color-primary);
+  top: 50%;
+  right: -42px;
+  width: 42px;
+  height: 42px;
+  background: var(--color-primary);
   color: var(--color-light-secondary);
   border: none;
   cursor: pointer;
-  border-radius: 0 10px 10px 0;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 1100;
+  border-radius: 0 8px 8px 0;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .toggle-btn:hover {
-  background-color: var(--color-dark-secondary);
-  transform: scale(1.1);
+  background: var(--color-dark-secondary);
+  transform: translateX(5px);
 }
 
-/* Lista de chats */
-.chat-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  flex-grow: 1;
+.sidebar-header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-light-secondary);
 }
 
-/* Contenedor con scroll aesthetic */
+.sidebar-logo {
+  font-size: 1.8rem;
+  margin-right: 10px;
+  color: var(--color-primary);
+}
+
+.sidebar-header h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+  color: var(--color-light-secondary);
+}
+
+.new-chat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--color-dark-secondary);
+  color: var(--color-light-secondary);
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.new-chat-btn:hover {
+  background: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .chat-container {
-  margin-top: 1rem;
-  max-height: 80vh;
+  flex-grow: 1;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-primary) transparent;
@@ -146,49 +192,70 @@ export default {
 .chat-container::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 10px;
-  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .chat-container::-webkit-scrollbar-thumb:hover {
   background: var(--color-dark-secondary);
-  transform: scale(1.2);
 }
 
 .chat-container::-webkit-scrollbar-track {
   background: transparent;
 }
 
-/* Items de chat */
+.chat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .chat-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color-background);
-  color: var(--color-light-secondary);
-  padding: 0.5rem 1rem;
+  background: var(--color-background);
+  padding: 0.75rem 1rem;
   border-radius: 8px;
-  margin: 10px 0;
-  transition: background-color 0.3s ease;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
 }
 
 .chat-item:hover {
-  background-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Input para editar el nombre del chat */
+.chat-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--color-dark-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
+}
+
+.chat-icon {
+  color: var(--color-primary);
+  font-size: 0.9rem;
+}
+
 .chat-input {
-  width: 70%;
-  padding: 4px;
-  font-size: 1rem;
-  border: 1px solid var(--color-dark-secondary);
+  background: var(--color-light-secondary);
+  border: 1px solid var(--color-primary);
+  padding: 0.5rem;
   border-radius: 4px;
+  color: var(--color-dark-secondary);
+  font-size: 0.9rem;
+  width: 70%;
   outline: none;
 }
 
-/* Botones de acción */
 .chat-actions {
   display: flex;
-  gap: 5px;
+  gap: 8px;
 }
 
 .edit-btn,
@@ -196,35 +263,33 @@ export default {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  transition: transform 0.2s ease;
+  color: var(--color-primary);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
 }
 
 .edit-btn:hover,
-.delete-btn:hover  {
-  transform: scale(1.3);
-}
-/* Botón "Nuevo Chat" */
-.sidebar .first-item button {
-  background-color: var(--color-primary);
-  color: var(--color-light-secondary);
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  width: 100%;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+.delete-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
 }
 
-.sidebar .first-item button:hover {
-  background-color: var(--color-dark-secondary);
+.delete-btn:hover {
+  color: #ff6b6b;
 }
 
-/* Responsive */
+.delete-icon {
+  transform: rotate(180deg);
+}
+
 @media (min-width: 768px) {
   .sidebar {
-    width: 20vw;
+    width: 300px;
   }
 }
 </style>
