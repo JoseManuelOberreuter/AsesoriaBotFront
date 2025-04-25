@@ -12,7 +12,8 @@ import {
   faPaperclip, faEdit, faEye, faChevronLeft, 
   faChevronRight, faUserPlus, faEnvelope, 
   faLock, faSignInAlt, faKey, faCircleNotch,
-  faCheckCircle, faPaperPlane, faBars, faTimes
+  faCheckCircle, faPaperPlane, faBars, faTimes,
+  faPhone, faMapMarkerAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 // Añadir iconos a la biblioteca de Font Awesome
@@ -22,7 +23,8 @@ library.add(
   faPaperclip, faEdit, faEye, faChevronLeft,
   faChevronRight, faUserPlus, faEnvelope,
   faLock, faSignInAlt, faKey, faCircleNotch,
-  faCheckCircle, faPaperPlane, faBars, faTimes
+  faCheckCircle, faPaperPlane, faBars, faTimes,
+  faPhone, faMapMarkerAlt
 );
 
 const pinia = createPinia(); // 📌 Inicializar Pinia

@@ -1,45 +1,47 @@
 <template>
-  <v-container class="full-height d-flex flex-column align-center justify-center">
-    <h1 class="mb-5 text-center font-weight-bold title">Elige tu Plan</h1>
-    <v-row class="plan-container" justify="center" align="center">
-      <v-col
-        v-for="(plan, index) in plans"
-        :key="index"
-        cols="12" sm="6" md="4"
-        class="d-flex justify-center"
+  <div class="pricing-section">
+    <div class="plan-container">
+      <div 
+        v-for="(plan, index) in plans" 
+        :key="index" 
+        class="pricing-card"
+        :class="{ 
+          'popular': index === 1,
+          'selected': selectedPlan === plan.name 
+        }"
       >
-        <v-card
-          class="plan-card"
-          :class="{ selected: selectedPlan === plan.name }"
-          outlined
-          @click="selectPlan(plan)"
+        <div class="card-header">
+          <span v-if="index === 1" class="popular-badge">Más Popular</span>
+          <h3 class="plan-name">{{ plan.name }}</h3>
+          <p class="plan-subtitle">{{ plan.subtitle }}</p>
+        </div>
+        
+        <div class="price-block">
+          <h2 class="price">{{ plan.price }}</h2>
+          <p class="price-period">por mes</p>
+        </div>
+        
+        <div class="plan-description">
+          <p>{{ plan.description }}</p>
+        </div>
+        
+        <div class="features-list">
+          <div v-for="(feature, i) in plan.features" :key="i" class="feature-item">
+            <font-awesome-icon icon="check-circle" class="feature-icon" />
+            <span>{{ feature }}</span>
+          </div>
+        </div>
+        
+        <button 
+          @click="selectPlan(plan)" 
+          class="select-plan-btn"
+          :style="{ backgroundColor: index === 1 ? 'var(--color-dark-secondary)' : plan.btnColor }"
         >
-          <v-card-title class="text-h5 font-weight-bold text-center plan-title">
-            {{ plan.name }}
-          </v-card-title>
-          <v-card-subtitle class="text-center subtitle">
-            {{ plan.subtitle }}
-          </v-card-subtitle>
-          <v-card-text class="text-center">
-            <p>{{ plan.description }}</p>
-            <h2 class="price">{{ plan.price }}</h2>
-          </v-card-text>
-          <v-card-actions class="justify-center">
-            <v-btn 
-              :color="plan.btnColor" 
-              dark 
-              @click.stop="selectPlan(plan)" 
-              elevation="2" 
-              class="select-btn"
-              :aria-label="`Seleccionar plan ${plan.name}`"
-            >
-              Seleccionar
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+          Seleccionar Plan
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -55,6 +57,7 @@ const props = defineProps({
     default: ''
   }
 });
+
 const emit = defineEmits(['plan-selected']);
 
 function selectPlan(plan) {
@@ -63,74 +66,197 @@ function selectPlan(plan) {
 </script>
 
 <style scoped>
-.full-height {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--color-background);
-}
-
-.title {
-  font-size: 2.5rem;
-  color: var(--color-primary);
-  margin-bottom: 20px;
+.pricing-section {
+  padding: 20px 0;
+  width: 100%;
 }
 
 .plan-container {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
-  width: 100%;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px;
 }
 
-.plan-card {
-  width: 100%;
-  max-width: 320px;
-  padding: 20px;
-  text-align: center;
-  border-radius: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: var(--color-light-secondary);
-  min-height: 380px;
-  border: 2px solid var(--color-primary);
+.pricing-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  width: 280px;
+  padding: 25px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
-.plan-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-  border: 3px solid var(--color-dark-secondary);
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-.selected {
-  border: 3px solid var(--color-dark-secondary);
-  background-color: var(--color-light-secondary);
+.pricing-card.popular {
+  transform: scale(1.03);
+  z-index: 2;
+  border: 2px solid var(--color-dark-secondary);
+}
+
+.pricing-card.popular:hover {
+  transform: scale(1.03) translateY(-7px);
+}
+
+.pricing-card.selected {
+  border: 3px solid var(--color-primary);
+  background-color: rgba(var(--color-primary-rgb), 0.03);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-dark-secondary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  text-align: center;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.plan-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 3px;
+}
+
+.plan-subtitle {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.price-block {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .price {
+  font-size: 2.1rem;
   font-weight: bold;
-  font-size: 1.8rem;
   color: var(--color-dark-secondary);
-  margin-top: 10px;
+  margin-bottom: 0;
 }
 
-.select-btn {
-  border-radius: 5px;
-  width: 100%;
-  background-color: var(--color-secondary);
-  color: white;
-  font-weight: bold;
-  padding: 8px 12px;
-  text-transform: uppercase;
-  font-size: 14px;
-  transition: 0.5s;
+.price-period {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 3px;
 }
-.select-btn:hover {
-  background-color: var(--color-dark-secondary);
+
+.plan-description {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.features-list {
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.feature-icon {
+  color: var(--color-primary);
+  margin-right: 8px;
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.select-plan-btn {
+  width: 100%;
+  padding: 10px 0;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.select-plan-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 992px) {
+  .plan-container {
+    max-width: 900px;
+  }
+  
+  .pricing-card {
+    width: 250px;
+    padding: 20px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .plan-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .pricing-card {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 30px;
+  }
+  
+  .pricing-card.popular {
+    transform: none;
+    order: -1;
+  }
+  
+  .pricing-card.popular:hover {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-card {
+    max-width: 280px;
+    padding: 20px 15px;
+  }
+  
+  .price {
+    font-size: 1.8rem;
+  }
+  
+  .feature-item {
+    font-size: 0.8rem;
+  }
 }
 </style>
