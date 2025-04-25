@@ -1,163 +1,291 @@
 <template>
-    <SideBarMenu />
-    <div class="forgot-password-container">
-      <form @submit.prevent="sendResetEmail" class="glassmorphism">
+  <SideBarMenu />
+  <div class="container-form">
+    <form @submit.prevent="sendResetEmail" class="form-card">
+      <div class="form-header">
+        <font-awesome-icon icon="key" class="form-icon" />
         <h2 class="title">Recuperar Contraseña</h2>
-        <p class="description">
-          Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.
-        </p>
-  
+      </div>
+
+      <p class="description">
+        Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.
+      </p>
+
+      <div class="form-group">
+        <label for="email">
+          <font-awesome-icon icon="envelope" class="input-icon" />
+          Correo Electrónico
+        </label>
         <input 
           v-model="email" 
           type="email" 
-          placeholder="Tu correo electrónico" 
+          id="email"
+          placeholder="Ingresa tu correo" 
           required
-          class="input-field"
         />
-  
-        <button type="submit" :disabled="loading" class="submit-btn">
-          <span v-if="loading">Enviando...</span>
-          <span v-else>Enviar Correo</span>
-        </button>
-  
-        <p v-if="message" :class="['message', messageType]">{{ message }}</p>
-      </form>
-    </div>
-  </template>
-  
-  <script>
-  import axios from '@/api/axios';
-  import SideBarMenu from "@/components/SideBarMenu.vue";
-  
-  export default {
-    data() {
-      return {
-        email: "",
-        message: "",
-        messageType: "", // 📌 'success' o 'error' para estilos diferentes
-        loading: false
-      };
-    },
-    components: {
-        SideBarMenu
-    },
-    methods: {
-      async sendResetEmail() {
-        this.loading = true;
-        this.message = "";
-  
-        try {
-            //! Cambiar link
-          const response = await axios.post("/users/forgot-password", { email: this.email });
-          this.message = response.data.message;
-          this.messageType = "success";
-        } catch (error) {
-          this.message = error.response?.data?.error || "Error enviando la solicitud.";
-          this.messageType = "error";
-        } finally {
-          this.loading = false;
-        }
+      </div>
+
+      <button type="submit" :disabled="loading" class="submit-btn">
+        <span v-if="loading">
+          <font-awesome-icon icon="circle-notch" spin />
+          Enviando...
+        </span>
+        <span v-else>
+          <font-awesome-icon icon="paper-plane" />
+          Enviar Correo
+        </span>
+      </button>
+
+      <p v-if="message" :class="['message', messageType]">
+        <font-awesome-icon :icon="messageType === 'success' ? 'check-circle' : 'exclamation-triangle'" />
+        {{ message }}
+      </p>
+
+      <div class="form-footer">
+        <div class="action-link">
+          <p>¿Recordaste tu contraseña?</p>
+          <router-link to="/login" class="link">
+            <font-awesome-icon icon="sign-in-alt" />
+            Iniciar Sesión
+          </router-link>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+import axios from '@/api/axios';
+import SideBarMenu from "@/components/SideBarMenu.vue";
+
+export default {
+  data() {
+    return {
+      email: "",
+      message: "",
+      messageType: "", // 'success' o 'error' para estilos diferentes
+      loading: false
+    };
+  },
+  components: {
+    SideBarMenu
+  },
+  methods: {
+    async sendResetEmail() {
+      this.loading = true;
+      this.message = "";
+
+      try {
+        const response = await axios.post("/users/forgot-password", { email: this.email });
+        this.message = response.data.message;
+        this.messageType = "success";
+      } catch (error) {
+        this.message = error.response?.data?.error || "Error enviando la solicitud.";
+        this.messageType = "error";
+      } finally {
+        this.loading = false;
       }
     }
-  };
-  </script>
-  
-  <style scoped>
-  /* 📌 Contenedor principal */
-  .forgot-password-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: var(--color-background);
   }
-  
-  /* 📌 Estilo Glassmorphism */
-  .glassmorphism {
-    background: var(--color-primary);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  /* 📌 Título */
-  .title {
-    font-size: 22px;
-    font-weight: bold;
-    color: var(--color-light-secondary);
-    margin-bottom: 10px;
-  }
-  
-  /* 📌 Descripción */
-  .description {
-    font-size: 14px;
-    color: var(--color-light-secondary);
-    width: 70%;
-    margin: 20px auto;
-  }
-  
-  /* 📌 Input */
-  .input-field {
-    width: 92%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    outline: none;
-    transition: 0.3s;
-  }
-  
-  /* 📌 Efecto al enfocar */
-  .input-field::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  
-  .input-field:focus {
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-  }
-  
-  /* 📌 Botón */
-  .submit-btn {
-    width: 100%;
-    background-color: var(--color-dark-secondary);
-    color: white;
-    font-weight: bold;
-    padding: 12px;
-    border-radius: 12px;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* 📌 Efecto hover */
-  .submit-btn:hover {
-    background-color: var(--color-secondary);
-    transform: scale(1.05);
-  }
-  
-  /* 📌 Mensaje de éxito o error */
-  .message {
-    margin-top: 15px;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 8px;
-  }
-  
-  .success {
-    color: green;
-    background: rgba(0, 255, 0, 0.2);
-  }
-  
-  .error {
-    color: red;
-    background: rgba(255, 0, 0, 0.2);
-  }
-  </style>
+};
+</script>
+
+<style scoped>
+/* Contenedor principal */
+.container-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--color-background);
+  padding: 20px;
+}
+
+/* Tarjeta del formulario */
+.form-card {
+  background: var(--color-light-secondary);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.form-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Encabezado del formulario */
+.form-header {
+  background: var(--color-primary);
+  color: var(--color-light-secondary);
+  padding: 20px;
+  text-align: center;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+}
+
+.form-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+  color: var(--color-light-secondary);
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Descripción */
+.description {
+  padding: 15px 30px 0;
+  margin: 0;
+  text-align: center;
+  color: #666;
+  font-size: 15px;
+}
+
+/* Estilos de grupo de formulario */
+.form-group {
+  padding: 12px 30px;
+  position: relative;
+}
+
+.form-group:last-of-type {
+  padding-bottom: 5px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  margin-right: 8px;
+  color: var(--color-dark-secondary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+  background: white;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  border-color: var(--color-dark-secondary);
+  box-shadow: 0 0 0 3px rgba(136, 158, 115, 0.2);
+  outline: none;
+}
+
+/* Botón de envío */
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: calc(100% - 60px);
+  margin: 10px 30px;
+  padding: 12px;
+  background: var(--color-dark-secondary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover, .submit-btn:focus {
+  background: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mensaje de éxito o error */
+.message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 15px 30px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.success {
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+}
+
+.error {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+}
+
+/* Footer del formulario */
+.form-footer {
+  padding: 0 30px 15px;
+}
+
+.action-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.action-link p {
+  color: #666;
+  margin: 0;
+}
+
+.link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: var(--color-dark-secondary);
+  text-decoration: underline;
+}
+
+/* Animación para el botón */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.submit-btn:hover {
+  animation: pulse 1.5s infinite;
+}
+</style>
   
