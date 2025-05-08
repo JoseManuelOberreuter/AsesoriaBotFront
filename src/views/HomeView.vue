@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                    <img src="@/assets/AsesoriaBot.png" alt="Chatbot Illustration">
+                    <img src="@/assets/NewLogo.png" alt="Chatbot Illustration">
                 </div>
                 <div class="scroll-indicator">
                     <span>Descubre más</span>
@@ -80,11 +80,14 @@
                 </div>
             </section>
         </main>
+        
+        <FooterComponent />
     </div>
 </template>
 
 <script setup>
 import HeaderNav from '@/components/HeaderNav.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 </script>
 
 <style scoped>
@@ -107,7 +110,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
     flex-direction: column;
     min-height: 100vh;
     background-color: var(--color-background);
-    color: var(--color-dark-secondary);
+    color: var(--color-primary);
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -131,7 +134,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
     justify-content: space-between;
     padding: 0 5%;
     padding-top: 70px; /* Espacio para el header */
-    background: linear-gradient(135deg, var(--color-background) 0%, #f8f9fa 100%);
+    background: linear-gradient(135deg, var(--color-background) 0%, var(--color-neutral) 100%);
     overflow: hidden;
 }
 
@@ -176,7 +179,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
 }
 
 .hero-image {
-    flex: 1;
+    flex: 0.8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -197,7 +200,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
 }
 
 .hero-image img {
-    max-width: 90%;
+    max-width: 70%;
     height: auto;
     border-radius: 15px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
@@ -223,11 +226,11 @@ import HeaderNav from '@/components/HeaderNav.vue';
 
 .btn-primary {
     background-color: var(--color-primary);
-    color: white;
+    color: var(--color-light-secondary);
 }
 
 .btn-primary:hover {
-    background-color: var(--color-dark-secondary);
+    background-color: var(--color-accent);
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
@@ -239,8 +242,8 @@ import HeaderNav from '@/components/HeaderNav.vue';
 }
 
 .btn-secondary:hover {
-    background-color: var(--color-background);
-    color: var(--color-dark-secondary);
+    background-color: var(--color-neutral);
+    color: var(--color-primary);
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
@@ -268,7 +271,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
 .scroll-indicator span {
     margin-bottom: 10px;
     font-size: 0.9rem;
-    color: var(--color-dark-secondary);
+    color: var(--color-primary);
 }
 
 .scroll-arrow {
@@ -295,7 +298,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
 .features-section {
     padding: 5rem 5%;
     margin-bottom: 0;
-    background-color: white;
+    background-color: var(--color-light-secondary);
 }
 
 .features-section h2 {
@@ -313,7 +316,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
 }
 
 .feature-card {
-    background-color: #f8f9fa;
+    background-color: var(--color-neutral);
     padding: 2.5rem;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -355,7 +358,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
     text-align: center;
     padding: 2rem;
     position: relative;
-    background-color: white;
+    background-color: var(--color-light-secondary);
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease;
@@ -370,7 +373,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
     height: 60px;
     border-radius: 50%;
     background-color: var(--color-primary);
-    color: white;
+    color: var(--color-light-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -387,7 +390,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
 }
 
 .cta-content {
-    color: white;
+    color: var(--color-light-secondary);
     max-width: 900px;
     margin: 0 auto;
 }
@@ -406,7 +409,7 @@ import HeaderNav from '@/components/HeaderNav.vue';
 }
 
 .btn-cta {
-    background-color: white;
+    background-color: var(--color-light-secondary);
     color: var(--color-primary);
     font-size: 1.2rem;
     padding: 1.2rem 2.5rem;
@@ -414,8 +417,8 @@ import HeaderNav from '@/components/HeaderNav.vue';
 }
 
 .btn-cta:hover {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-accent);
+    color: var(--color-light-secondary);
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }

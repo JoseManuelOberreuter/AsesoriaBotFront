@@ -140,8 +140,8 @@ function resetForm() {
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(244, 237, 220, 0.2);
+  color: var(--color-light-secondary);
   outline: none;
   transition: 0.3s;
 }
@@ -154,8 +154,8 @@ function resetForm() {
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(244, 237, 220, 0.2);
+  color: var(--color-light-secondary);
   outline: none;
   transition: 0.3s;
 }
@@ -166,13 +166,13 @@ function resetForm() {
 
 .input-field:focus {
   background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 8px rgba(0, 112, 112, 0.4);
 }
 
 .submit-btn {
   width: 100%;
-  background-color: var(--color-primary);
-  color: white;
+  background-color: var(--color-secondary);
+  color: var(--color-light-secondary);
   font-weight: bold;
   padding: 12px;
   border-radius: 12px;
@@ -181,11 +181,11 @@ function resetForm() {
 }
 
 .submit-btn:hover {
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-accent);
   transform: scale(1.05);
 }
 
 .text-light-secondary {
-  color: white;
+  color: var(--color-light-secondary);
 }
 </style>

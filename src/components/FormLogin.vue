@@ -198,7 +198,7 @@ export default {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: var(--color-dark-secondary);
+  color: var(--color-secondary);
   opacity: 0.7;
   transition: all 0.2s ease;
 }
@@ -212,7 +212,7 @@ export default {
 }
 
 .password-toggle-icon.visible {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .form-group:last-of-type {
@@ -231,7 +231,7 @@ export default {
 
 .input-icon {
   margin-right: 8px;
-  color: var(--color-dark-secondary);
+  color: var(--color-primary);
 }
 
 .form-group input {
@@ -240,15 +240,15 @@ export default {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 15px;
-  color: #333;
-  background: white;
+  color: var(--color-dark-secondary);
+  background: var(--color-light-secondary);
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
 .form-group input:focus {
-  border-color: var(--color-dark-secondary);
-  box-shadow: 0 0 0 3px rgba(136, 158, 115, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 112, 112, 0.2);
   outline: none;
 }
 
@@ -275,8 +275,8 @@ export default {
   width: calc(100% - 60px);
   margin: 10px 30px;
   padding: 12px;
-  background: var(--color-dark-secondary);
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-light-secondary);
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -286,7 +286,7 @@ export default {
 }
 
 .submit-btn:hover, .submit-btn:focus {
-  background: var(--color-primary);
+  background: var(--color-accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -326,7 +326,7 @@ export default {
 }
 
 .link:hover {
-  color: var(--color-dark-secondary);
+  color: var(--color-accent);
   text-decoration: underline;
 }
 

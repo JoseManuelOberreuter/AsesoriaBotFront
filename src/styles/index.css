@@ -1,9 +1,16 @@
 :root {
-    --color-primary: #AD8B73;
-    --color-secondary: #CEAB93;
-    --color-background: #E3CAA5;
-    --color-light-secondary: #FFFBE9;
-    --color-dark-secondary: #889E73;
+    --color-primary: #007070;
+    --color-secondary: #006060;
+    --color-background: #f4eddc;
+    --color-light-secondary: #ffffff;
+    --color-dark-secondary: #000000;
+    --color-accent: #009090;
+    --color-accent-light: #00a0a0;
+    --color-neutral: #e0d5c0;
+    --color-neutral-dark: #c0b5a0;
+    --color-success: #008060;
+    --color-warning: #d0a060;
+    --color-error: #c05050;
   }
   
   /* Aplicar colores al body */

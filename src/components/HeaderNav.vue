@@ -91,12 +91,12 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(227, 202, 165, 0.98);
+  background-color: rgba(244, 237, 220, 0.98);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   z-index: 1000;
   transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(173, 139, 115, 0.2);
+  border-bottom: 1px solid rgba(0, 112, 112, 0.2);
 }
 
 .header-container {
@@ -132,12 +132,12 @@ export default {
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-dark-secondary);
+  color: var(--color-primary);
   transition: color 0.2s ease;
 }
 
 .logo-link:hover .logo-text {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .header-nav {
@@ -146,7 +146,7 @@ export default {
 }
 
 .nav-link {
-  color: var(--color-dark-secondary);
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -161,7 +161,7 @@ export default {
   height: 3px;
   bottom: -6px;
   left: 0;
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-primary);
   transition: width 0.3s ease;
 }
 
@@ -193,53 +193,53 @@ export default {
 }
 
 .btn-outline {
-  color: var(--color-dark-secondary);
-  border: 1px solid var(--color-dark-secondary);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
   background-color: transparent;
 }
 
 .btn-outline:hover {
-  background-color: var(--color-dark-secondary);
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-light-secondary);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-solid {
-  background-color: var(--color-dark-secondary);
-  color: white;
-  border: 1px solid var(--color-dark-secondary);
+  background-color: var(--color-secondary);
+  color: var(--color-light-secondary);
+  border: 1px solid var(--color-secondary);
 }
 
 .btn-solid:hover {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-light-secondary);
   padding: 0.6rem 1.4rem;
   border: 1px solid var(--color-primary);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .router-link-active.btn-outline {
-  background-color: var(--color-dark-secondary);
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-light-secondary);
 }
 
 .router-link-active.btn-solid,
 .router-link-active.btn-primary {
-  background-color: var(--color-dark-secondary);
-  border-color: var(--color-dark-secondary);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -258,7 +258,7 @@ export default {
   top: 77px;
   left: 0;
   right: 0;
-  background-color: rgba(227, 202, 165, 0.98);
+  background-color: rgba(244, 237, 220, 0.98);
   backdrop-filter: blur(10px);
   padding: 1rem;
   flex-direction: column;
@@ -268,7 +268,7 @@ export default {
   opacity: 0;
   transition: all 0.3s ease;
   z-index: 999;
-  border-bottom: 1px solid rgba(173, 139, 115, 0.2);
+  border-bottom: 1px solid rgba(0, 112, 112, 0.2);
 }
 
 .mobile-menu.open {
@@ -278,7 +278,7 @@ export default {
 
 .mobile-nav-link {
   padding: 0.8rem 1rem;
-  color: var(--color-dark-secondary);
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 600;
   border-radius: 5px;
@@ -289,17 +289,23 @@ export default {
 }
 
 .mobile-nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: var(--color-neutral);
 }
 
 .mobile-nav-link.highlight {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-light-secondary);
   font-weight: 600;
 }
 
 .mobile-nav-link.highlight:hover {
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-accent);
+}
+
+.router-link-active.mobile-nav-link:not(.highlight) {
+  background-color: var(--color-neutral);
+  color: var(--color-primary);
+  font-weight: 700;
 }
 
 @media (max-width: 991px) {
@@ -317,12 +323,6 @@ export default {
   
   .mobile-menu {
     display: flex;
-  }
-  
-  .router-link-active.mobile-nav-link:not(.highlight) {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: var(--color-dark-secondary);
-    font-weight: 700;
   }
 }
 

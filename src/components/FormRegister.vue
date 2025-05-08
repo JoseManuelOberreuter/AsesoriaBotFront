@@ -149,15 +149,6 @@ export default {
 </script>
 
 <style scoped>
-/* 📌 Usando las variables de color */
-:root {
-  --color-primary: #AD8B73;
-  --color-secondary: #CEAB93;
-  --color-background: #E3CAA5;
-  --color-light-secondary: #FFFBE9;
-  --color-dark-secondary: #889E73;
-}
-
 /* 📌 Contenedor principal */
 .container-form {
   display: flex;
@@ -214,16 +205,17 @@ export default {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 15px;
-  color: #333;
-  background: white;
+  color: var(--color-dark-secondary);
+  background: var(--color-light-secondary);
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
 /* 📌 Efecto al enfocar */
 .form-group input:focus {
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 112, 112, 0.2);
+  outline: none;
 }
 
 /* 📌 Mensaje de error */
@@ -262,8 +254,8 @@ export default {
   width: calc(100% - 60px);
   margin: 10px 30px;
   padding: 12px;
-  background: var(--color-dark-secondary);
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-light-secondary);
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -273,7 +265,7 @@ export default {
 }
 
 .submit-btn:hover, .submit-btn:focus {
-  background: var(--color-primary);
+  background: var(--color-accent);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -303,14 +295,14 @@ export default {
 
 .confirmation-card p {
   font-size: 16px;
-  color: var(--color-dark-secondary);
+  color: var(--color-primary);
   margin-bottom: 15px;
 }
 
 /* 📌 Botón de inicio de sesión */
 .login-btn {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-light-secondary);
   font-weight: bold;
   padding: 10px 15px;
   border-radius: 8px;
@@ -320,7 +312,7 @@ export default {
 }
 
 .login-btn:hover {
-  background: var(--color-secondary);
+  background: var(--color-accent);
   transform: scale(1.05);
 }
 
@@ -384,7 +376,7 @@ export default {
 
 .input-icon {
   margin-right: 8px;
-  color: var(--color-dark-secondary);
+  color: var(--color-primary);
 }
 
 .form-group input {
@@ -393,15 +385,15 @@ export default {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 15px;
-  color: #333;
-  background: white;
+  color: var(--color-dark-secondary);
+  background: var(--color-light-secondary);
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
 .form-group input:focus {
-  border-color: var(--color-dark-secondary);
-  box-shadow: 0 0 0 3px rgba(136, 158, 115, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 112, 112, 0.2);
   outline: none;
 }
 
@@ -434,7 +426,7 @@ export default {
 }
 
 .link:hover {
-  color: var(--color-dark-secondary);
+  color: var(--color-accent);
   text-decoration: underline;
 }
 
