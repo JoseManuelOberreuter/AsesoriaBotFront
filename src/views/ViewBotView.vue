@@ -1,33 +1,49 @@
 <template>
   <div class="view-bot-container">
-    <h2>👁️ Ver Bot</h2>
-    <div v-if="loading" class="loading">Cargando...</div>
-    <div v-else-if="error" class="error-message">❌ {{ errorMessage }}</div>
-    <div v-else class="bot-details">
-      <div class="detail-group">
-        <h3>Información General</h3>
-        <div class="detail-item">
-          <span class="label">Nombre:</span>
-          <span class="value">{{ bot.name }}</span>
-        </div>
-        <div class="detail-item">
-          <span class="label">Tipo:</span>
-          <span class="value">{{ getBotTypeName(bot.type) }}</span>
-        </div>
-        <div class="detail-item">
-          <span class="label">Creado:</span>
-          <span class="value">{{ new Date(bot.createdAt).toLocaleDateString() }}</span>
-        </div>
+    <div class="view-bot-card">
+      <div class="view-header">
+        <h2><font-awesome-icon icon="robot" /> Ver Bot</h2>
+        <p>Consulta la información y detalles de tu bot</p>
       </div>
-
-      <div class="detail-group">
-        <h3>Descripción</h3>
-        <p class="description">{{ bot.description || 'No hay descripción disponible' }}</p>
+      <div v-if="loading" class="loading-state">
+        <font-awesome-icon icon="spinner" spin />
+        <span>Cargando información del bot...</span>
       </div>
-
-      <div class="button-group">
-        <button @click="goToEdit" class="edit-btn">✏️ Editar</button>
-        <button @click="goBack" class="back-btn">← Volver</button>
+      <div v-else-if="error" class="error-state">
+        <font-awesome-icon icon="exclamation-circle" />
+        <span>{{ errorMessage }}</span>
+      </div>
+      <div v-else class="bot-details">
+        <div class="detail-group">
+          <h3>Información General</h3>
+          <div class="detail-item">
+            <span class="label">Nombre:</span>
+            <span class="value">{{ bot.name }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Tipo:</span>
+            <span class="value type-badge">
+              <font-awesome-icon :icon="getTypeIcon(bot.type)" />
+              {{ getBotTypeName(bot.type) }}
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Creado:</span>
+            <span class="value">{{ new Date(bot.createdAt).toLocaleDateString() }}</span>
+          </div>
+        </div>
+        <div class="detail-group">
+          <h3>Descripción</h3>
+          <p class="description">{{ bot.description || 'No hay descripción disponible' }}</p>
+        </div>
+        <div class="button-group">
+          <button @click="goToEdit" class="edit-btn">
+            <font-awesome-icon icon="pen" /> Editar
+          </button>
+          <button @click="goBack" class="back-btn">
+            <font-awesome-icon icon="arrow-left" /> Volver
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -37,6 +53,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/store/userStore';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import axios from '@/api/axios';
 
 const route = useRoute();
@@ -55,6 +72,15 @@ const getBotTypeName = (type) => {
     general: 'General'
   };
   return types[type] || type;
+};
+
+const getTypeIcon = (type) => {
+  const icons = {
+    support: 'headset',
+    internal: 'building',
+    general: 'robot'
+  };
+  return icons[type] || 'robot';
 };
 
 onMounted(async () => {
@@ -83,64 +109,123 @@ const goBack = () => {
 
 <style scoped>
 .view-bot-container {
-  max-width: 600px;
-  margin: 3rem auto;
-  background: var(--color-light-secondary);
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+  background: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
-h2 {
+.view-bot-card {
+  background: var(--color-light-secondary);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 800px;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: visible;
+}
+
+.view-header {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.view-header h2 {
+  color: var(--color-primary);
+  font-size: 1.3rem;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.view-header p {
+  color: #666;
+  font-size: 0.98rem;
 }
 
 .detail-group {
-  margin-bottom: 2rem;
+  margin-bottom: 1.1rem;
 }
 
-h3 {
+.detail-group h3 {
   color: var(--color-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
   border-bottom: 2px solid var(--color-primary);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.3rem;
+  font-size: 1.05rem;
 }
 
 .detail-item {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
+  align-items: center;
 }
 
 .label {
   font-weight: bold;
-  width: 120px;
+  width: 110px;
   color: var(--color-dark-secondary);
+  font-size: 0.97rem;
 }
 
 .value {
   flex: 1;
+  font-size: 0.97rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.type-badge {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.97rem;
 }
 
 .description {
-  line-height: 1.6;
+  line-height: 1.5;
   color: #333;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  font-size: 0.97rem;
+  border: 1.5px solid #e9ecef;
 }
 
 .button-group {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1.2rem;
 }
 
 .edit-btn, .back-btn {
-  padding: 0.8rem 1.5rem;
+  padding: 0.7rem 1.2rem;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.97rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
 }
 
 .edit-btn {
@@ -148,28 +233,54 @@ h3 {
   color: white;
 }
 
-.back-btn {
-  background: #6c757d;
-  color: white;
-}
-
-.edit-btn:hover {
+.edit-btn:hover:not(:disabled) {
   background: var(--color-dark-secondary);
+  transform: translateY(-2px);
 }
 
-.back-btn:hover {
-  background: #5a6268;
-}
-
-.loading {
-  text-align: center;
-  font-weight: bold;
+.back-btn {
+  background: #f8f9fa;
   color: var(--color-dark-secondary);
 }
 
-.error-message {
+.back-btn:hover {
+  background: #e9ecef;
+}
+
+.loading-state,
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
   text-align: center;
+}
+
+.loading-state {
+  color: var(--color-primary);
+}
+
+.error-state {
   color: #dc3545;
-  font-weight: bold;
+}
+
+.loading-state svg,
+.error-state svg {
+  font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  .view-bot-card {
+    padding: 1.5rem 0.5rem;
+    max-width: 98vw;
+  }
+  .button-group {
+    flex-direction: column;
+  }
+  .edit-btn, .back-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style> 
