@@ -58,7 +58,8 @@ onMounted(async () => {
 .dashboard-content {
   text-align: justify;
   background: var(--color-light-secondary);
-  padding: 40px;
+  padding: 20px;
+  margin: 20 auto;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

@@ -53,6 +53,7 @@ const viewBot = (id) => {
 <style scoped>
 .bot-status {
   margin-top: 20px;
+  margin: 20 auto;
   background: var(--color-light-secondary);
   padding: 20px;
   border-radius: 10px;

@@ -1,11 +1,6 @@
 <template>
   <div>
     <aside :class="['right-sidebar', { open: isOpen }]">
-      <!-- Botón para abrir/cerrar -->
-      <button class="toggle-btn" @click="toggleSidebar">
-        <font-awesome-icon :icon="isOpen ? 'chevron-right' : 'chevron-left'" />
-      </button>
-
       <!-- Logo y nombre de la aplicación -->
       <div class="sidebar-header">
         <font-awesome-icon icon="robot" class="sidebar-logo" />
@@ -90,16 +85,13 @@ export default {
     }
   },
   methods: {
-    toggleSidebar() {
-      this.isOpen = !this.isOpen;
-    },
   },
 };
 </script>
 
 <style scoped>
 .right-sidebar {
-  width: 280px;
+  width: 200px;
   background: var(--color-secondary);
   padding: 1.5rem 1rem;
   position: fixed;
@@ -117,30 +109,6 @@ export default {
 
 .right-sidebar.open {
   transform: translateX(0);
-}
-
-.toggle-btn {
-  position: absolute;
-  top: 50%;
-  left: -42px;
-  width: 42px;
-  height: 42px;
-  background: var(--color-primary);
-  color: var(--color-light-secondary);
-  border: none;
-  cursor: pointer;
-  z-index: 1100;
-  border-radius: 8px 0 0 8px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.toggle-btn:hover {
-  background: var(--color-dark-secondary);
-  transform: translateX(-5px);
 }
 
 .sidebar-header {
@@ -293,7 +261,7 @@ export default {
 
 @media (min-width: 768px) {
   .right-sidebar {
-    width: 300px;
+    width: 220px;
   }
 }
 </style>
