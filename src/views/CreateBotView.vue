@@ -431,11 +431,13 @@ const prevStep = () => {
   <style scoped>
 .create-bot-horizontal-container {
   min-height: 100vh;
+  max-height: 100vh;
   background: var(--color-background);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 3rem 0;
+  padding: 0;
+  overflow: auto;
 }
 .horizontal-layout {
   display: flex;
@@ -443,22 +445,24 @@ const prevStep = () => {
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   width: 1100px;
-  min-height: 700px;
-  overflow: hidden;
+  min-height: 0;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 1.2rem 0.7rem;
 }
 .steps-sidebar {
-  width: 270px;
+  width: 210px;
   background: white;
-  padding: 2.5rem 1.5rem;
+  padding: 1.2rem 0.7rem;
   border-right: 1px solid #f0ede5;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 .steps-sidebar h2 {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   color: var(--color-primary);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.2rem;
   font-weight: 700;
 }
 .steps-list {
@@ -470,12 +474,12 @@ const prevStep = () => {
 .steps-list li {
   display: flex;
   align-items: center;
-  margin-bottom: 2.2rem;
+  margin-bottom: 1.1rem;
   transition: color 0.2s;
 }
 .step-circle {
-  width: 38px;
-  height: 38px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: #e9ecef;
   color: var(--color-dark-secondary);
@@ -483,8 +487,8 @@ const prevStep = () => {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1.2rem;
-  margin-right: 1.1rem;
+  font-size: 1rem;
+  margin-right: 0.7rem;
   transition: background 0.3s, color 0.3s;
 }
 .steps-list li.active .step-circle {
@@ -502,15 +506,15 @@ const prevStep = () => {
 .step-title {
   font-weight: 600;
   color: var(--color-primary);
-  font-size: 1.05rem;
+  font-size: 0.97rem;
 }
 .step-desc {
   color: #8b8b8b;
-  font-size: 0.92rem;
+  font-size: 0.85rem;
 }
 .step-content {
   flex: 1;
-  padding: 3rem 3.5rem;
+  padding: 1.2rem 1.2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -520,16 +524,16 @@ const prevStep = () => {
   width: 100%;
 }
 .form-step-horizontal {
-    max-width: 600px;
+  max-width: 520px;
   margin: 0 auto;
   animation: fadeIn 0.3s ease;
 }
 .input-group {
-  margin-bottom: 2.2rem;
+  margin-bottom: 1.1rem;
 }
 .input-group label {
   display: block;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.3rem;
   font-weight: 500;
   color: var(--color-dark-secondary);
 }
@@ -539,15 +543,16 @@ const prevStep = () => {
 .input-wrapper input,
 .input-wrapper textarea {
   width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
+  padding: 0.7rem 0.7rem 0.7rem 2.2rem;
   border: 2px solid #e9ecef;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 0.97rem;
   background: white;
   transition: border-color 0.3s;
+  box-sizing: border-box;
 }
 .input-wrapper textarea {
-  min-height: 100px;
+  min-height: 60px;
   resize: vertical;
 }
 .input-icon {
@@ -555,7 +560,7 @@ const prevStep = () => {
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .input-wrapper input:focus,
 .input-wrapper textarea:focus {
@@ -564,28 +569,28 @@ const prevStep = () => {
 }
 .type-options-horizontal {
   display: flex;
-  gap: 1.5rem;
+  gap: 0.7rem;
 }
 .type-option-horizontal {
   background: #f8f9fa;
   border: 2px solid #e9ecef;
   border-radius: 12px;
-  padding: 1.2rem 1.5rem;
+  padding: 0.7rem 0.7rem;
   cursor: pointer;
   min-width: 150px;
   flex: 1;
   transition: border-color 0.3s, background 0.3s;
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 .type-option-horizontal.selected {
   border-color: var(--color-primary);
   background: rgba(var(--color-primary-rgb), 0.07);
 }
 .type-icon {
-  font-size: 1.5rem;
-  margin-top: 0.2rem;
+  font-size: 1.1rem;
+  margin-top: 0.1rem;
   color: var(--color-primary);
 }
 .type-texts {
@@ -595,30 +600,30 @@ const prevStep = () => {
 .type-name {
   font-weight: 600;
   color: var(--color-primary);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
 }
 .type-description {
-  font-size: 0.93rem;
+  font-size: 0.85rem;
   color: #6c757d;
 }
 .language-options-horizontal,
 .style-options-horizontal {
   display: flex;
-  gap: 1.5rem;
+  gap: 0.7rem;
 }
 .language-option-horizontal,
 .style-option-horizontal {
   background: #f8f9fa;
   border: 2px solid #e9ecef;
     border-radius: 12px;
-  padding: 1.2rem 1.5rem;
+  padding: 0.7rem 0.7rem;
   cursor: pointer;
   min-width: 120px;
   flex: 1;
   transition: border-color 0.3s, background 0.3s;
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.4rem;
 }
 .language-option-horizontal.selected,
 .style-option-horizontal.selected {
@@ -627,7 +632,7 @@ const prevStep = () => {
 }
 .language-flag,
 .style-icon {
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 .language-name,
 .style-name {
@@ -639,19 +644,19 @@ const prevStep = () => {
     flex-direction: column;
 }
 .style-description {
-  font-size: 0.93rem;
+  font-size: 0.85rem;
   color: #6c757d;
 }
 .toggle-label {
   display: flex;
   align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
   cursor: pointer;
 }
 .toggle-switch {
   position: relative;
-  width: 60px;
-  height: 34px;
+  width: 38px;
+  height: 22px;
 }
 .toggle-switch input {
   opacity: 0;
@@ -672,10 +677,10 @@ const prevStep = () => {
 .toggle-slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
   background-color: white;
   transition: .4s;
   border-radius: 50%;
@@ -684,7 +689,7 @@ input:checked + .toggle-slider {
   background-color: var(--color-primary);
 }
 input:checked + .toggle-slider:before {
-  transform: translateX(26px);
+  transform: translateX(16px);
 }
 .toggle-content {
   flex: 1;
@@ -693,17 +698,17 @@ input:checked + .toggle-slider:before {
   display: block;
   font-weight: 500;
   color: var(--color-dark-secondary);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.1rem;
 }
 .toggle-description {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #6c757d;
 }
 .review-ux-wrapper {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   animation: fadeInUp 0.5s;
 }
 @keyframes fadeInUp {
@@ -714,43 +719,43 @@ input:checked + .toggle-slider:before {
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  padding: 1.7rem 1.5rem 1.2rem 1.5rem;
-  min-width: 320px;
-  max-width: 420px;
+  padding: 1rem 0.7rem 0.7rem 0.7rem;
+  min-width: 220px;
+  max-width: 340px;
   width: 100%;
 }
 .review-ux-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.7rem;
 }
 .review-ux-check {
   color: var(--color-accent);
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 .review-ux-header h2 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--color-primary);
   font-weight: 700;
 }
 .review-ux-header p {
   margin: 0;
   color: #888;
-  font-size: 1.01rem;
+  font-size: 0.9rem;
 }
 .review-ux-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 1.2rem 0;
+  margin: 0 0 0.7rem 0;
 }
 .review-ux-item {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
     font-size: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   color: #333;
   border-radius: 7px;
   padding: 0.4rem 0.3rem;
@@ -760,7 +765,7 @@ input:checked + .toggle-slider:before {
   background: var(--color-light-secondary);
 }
 .ux-icon {
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   color: var(--color-primary);
   min-width: 1.2rem;
   margin-top: 0.1rem;
@@ -776,7 +781,7 @@ input:checked + .toggle-slider:before {
   flex: 1;
 }
 .ux-desc-value {
-  max-width: 210px;
+  max-width: 150px;
   display: inline-block;
   vertical-align: middle;
   line-height: 1.4;
@@ -785,7 +790,7 @@ input:checked + .toggle-slider:before {
   background: none;
   border: none;
   color: var(--color-primary);
-  font-size: 0.97rem;
+  font-size: 0.85rem;
   cursor: pointer;
   text-decoration: underline;
   padding: 0;
@@ -799,12 +804,12 @@ input:checked + .toggle-slider:before {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.7rem;
+  padding: 0.6rem 1.1rem;
     background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 8px;
-  font-size: 1.08rem;
+  font-size: 0.97rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
@@ -818,13 +823,13 @@ input:checked + .toggle-slider:before {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  margin-top: 2.5rem;
+  margin-top: 1.1rem;
 }
 .nav-btn {
-  padding: 1rem 2rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.97rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -861,8 +866,8 @@ input:checked + .toggle-slider:before {
   color: var(--color-primary);
   border: 1.5px solid var(--color-primary);
   border-radius: 8px;
-  padding: 0.6rem 1.3rem;
-  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.97rem;
   font-weight: 500;
   display: flex;
   align-items: center;
