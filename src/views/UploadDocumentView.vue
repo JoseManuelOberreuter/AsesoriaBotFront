@@ -1,38 +1,41 @@
 <template>
   <div class="documents-container">
-    <div class="documents-card">
-      <div class="documents-header">
-        <h2><font-awesome-icon icon="paperclip" /> Documentos del Bot</h2>
-        <p>Gestiona y sube archivos para tu bot</p>
-      </div>
-      <form @submit.prevent="handleUpload" class="upload-form">
-        <label for="bot">Selecciona tu bot:</label>
-        <select v-model="selectedBotId" required>
-          <option value="" disabled>Selecciona un bot</option>
-          <option v-for="bot in botStore.bots" :key="bot._id" :value="bot._id">
-            {{ bot.name }}
-          </option>
-        </select>
-        <input type="file" ref="fileInput" required />
-        <button type="submit" class="upload-btn">
-          <font-awesome-icon icon="upload" /> Subir Documento
-        </button>
-      </form>
-      <div v-if="documents.length">
-        <h3><font-awesome-icon icon="file-alt" /> Archivos Subidos</h3>
-        <ul class="doc-list">
-          <li v-for="doc in documents" :key="doc._id">
-            <div class="doc-info">
-              <font-awesome-icon icon="file" class="doc-icon" />
-              <a :href="doc.url" target="_blank">{{ doc.filename }}</a>
-              <span class="type-badge">{{ doc.fileType }}</span>
-              <span class="meta">{{ (doc.metadata.size / 1024).toFixed(1) }} KB</span>
-            </div>
-            <button @click="deleteDoc(doc._id)" class="delete-btn">
-              <font-awesome-icon icon="trash" /> Eliminar
-            </button>
-          </li>
-        </ul>
+    <div class="documents-layout">
+      <DashboardSidebar />
+      <div class="documents-card">
+        <div class="documents-header">
+          <h2><font-awesome-icon icon="paperclip" /> Documentos del Bot</h2>
+          <p>Gestiona y sube archivos para tu bot</p>
+        </div>
+        <form @submit.prevent="handleUpload" class="upload-form">
+          <label for="bot">Selecciona tu bot:</label>
+          <select v-model="selectedBotId" required>
+            <option value="" disabled>Selecciona un bot</option>
+            <option v-for="bot in botStore.bots" :key="bot._id" :value="bot._id">
+              {{ bot.name }}
+            </option>
+          </select>
+          <input type="file" ref="fileInput" required />
+          <button type="submit" class="upload-btn">
+            <font-awesome-icon icon="upload" /> Subir Documento
+          </button>
+        </form>
+        <div v-if="documents.length">
+          <h3><font-awesome-icon icon="file-alt" /> Archivos Subidos</h3>
+          <ul class="doc-list">
+            <li v-for="doc in documents" :key="doc._id">
+              <div class="doc-info">
+                <font-awesome-icon icon="file" class="doc-icon" />
+                <a :href="doc.url" target="_blank">{{ doc.filename }}</a>
+                <span class="type-badge">{{ doc.fileType }}</span>
+                <span class="meta">{{ (doc.metadata.size / 1024).toFixed(1) }} KB</span>
+              </div>
+              <button @click="deleteDoc(doc._id)" class="delete-btn">
+                <font-awesome-icon icon="trash" /> Eliminar
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -106,29 +109,40 @@ const deleteDoc = async (id) => {
     console.error('❌ Error al eliminar documento:', err);
   }
 };
+
+// Import the DashboardSidebar component
+import DashboardSidebar from '@/components/DashboardSidebar.vue';
 </script>
 
 <style scoped>
 .documents-container {
   min-height: 100vh;
+  max-height: 100vh;
   background: var(--color-background);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  overflow: auto;
 }
 
-.documents-card {
+.documents-layout {
+  display: flex;
   background: var(--color-light-secondary);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  width: 100%;
-  max-width: 800px;
-  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  width: 60%;
   min-height: 0;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 1.2rem 0.7rem;
+}
+
+.documents-card {
+  flex: 1;
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   overflow-y: visible;
 }
 
@@ -275,10 +289,14 @@ const deleteDoc = async (id) => {
   background: #e9ecef;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
+  .documents-layout {
+    flex-direction: column;
+    width: 100%;
+    min-width: unset;
+  }
   .documents-card {
     padding: 1.5rem 0.5rem;
-    max-width: 98vw;
   }
   .upload-btn, .delete-btn {
     width: 100%;

@@ -1,5 +1,6 @@
 <template>
   <div class="edit-bot-container">
+    <DashboardSidebar />
     <div class="edit-bot-card">
       <div class="edit-header">
         <h2><font-awesome-icon icon="robot" /> Editar Bot</h2>
@@ -91,7 +92,7 @@ import { useBotStore } from '@/store/botStore';
 import { useUserStore } from '@/store/userStore';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import axios from '@/api/axios';
-
+import DashboardSidebar from '@/components/DashboardSidebar.vue';
 const route = useRoute();
 const router = useRouter();
 const botStore = useBotStore();

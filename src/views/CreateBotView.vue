@@ -1,6 +1,8 @@
 <template>
   <div class="create-bot-horizontal-container">
     <div class="horizontal-layout">
+      <!-- Add the DashboardSidebar component -->
+      <DashboardSidebar />
       <!-- Barra de pasos vertical -->
       <aside class="steps-sidebar">
         <h2><font-awesome-icon icon="robot" /> Crear Bot</h2>
@@ -426,6 +428,9 @@ const prevStep = () => {
   const showFullDesc = ref(false);
   const isDescLong = computed(() => form.value.description.length > 80);
   const shortDesc = computed(() => form.value.description.slice(0, 80));
+
+// Import the DashboardSidebar component
+import DashboardSidebar from '@/components/DashboardSidebar.vue';
   </script>
   
   <style scoped>
@@ -444,7 +449,7 @@ const prevStep = () => {
   background: var(--color-light-secondary);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  width: 1100px;
+  width: 60%; /* Adjusted width to accommodate the sidebar */
   min-height: 0;
   max-height: 88vh;
   overflow-y: auto;
@@ -817,7 +822,7 @@ input:checked + .toggle-slider:before {
 }
 .btn-create-ux:hover {
   background: var(--color-dark-secondary);
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px);
 }
 .form-navigation-horizontal {
   display: flex;

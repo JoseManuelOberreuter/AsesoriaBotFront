@@ -1,5 +1,6 @@
 <template>
   <div class="view-bot-container">
+    <DashboardSidebar />
     <div class="view-bot-card">
       <div class="view-header">
         <h2><font-awesome-icon icon="robot" /> Ver Bot</h2>
@@ -55,7 +56,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '@/store/userStore';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import axios from '@/api/axios';
-
+import DashboardSidebar from '@/components/DashboardSidebar.vue';
 const route = useRoute();
 const router = useRouter();
 const userStore = useUserStore();
